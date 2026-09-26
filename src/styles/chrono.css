@@ -7,9 +7,11 @@
    ========================================================================== */
 
 @font-face {
-  font-family: 'Bodoni Moda';
-  src: url('../../public/fonts/bodonimoda-400.woff2') format('woff2');
-  font-weight: 400; font-style: normal; font-display: swap;
+  font-family: "Bodoni Moda";
+  src: url("../../public/fonts/bodonimoda-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 .chrono {
@@ -18,7 +20,7 @@
   --cream: #f4e9dc;
 
   position: relative;
-  height: 240svh;              /* travel for the intro to breathe into */
+  height: 240svh; /* travel for the intro to breathe into */
   background: #060505;
 }
 
@@ -63,26 +65,37 @@
   pointer-events: none;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 1.1s var(--ease-out), transform 1.2s var(--ease-out);
+  transition:
+    opacity 1.1s var(--ease-out),
+    transform 1.2s var(--ease-out);
 }
 .chrono.is-live .chrono__title,
 .chrono.is-live .chrono__rail,
 .chrono.is-live .chrono__hint,
-.chrono.is-live .chrono__note { opacity: 1; transform: none; }
-.chrono.is-live .chrono__rail { transition-delay: .15s; }
-.chrono.is-live .chrono__hint { transition-delay: .25s; }
-.chrono.is-live .chrono__note { transition-delay: .3s; }
+.chrono.is-live .chrono__note {
+  opacity: 1;
+  transform: none;
+}
+.chrono.is-live .chrono__rail {
+  transition-delay: 0.15s;
+}
+.chrono.is-live .chrono__hint {
+  transition-delay: 0.25s;
+}
+.chrono.is-live .chrono__note {
+  transition-delay: 0.3s;
+}
 
 .chrono__title {
   left: clamp(18px, 3vw, 54px);
   top: clamp(26px, 5.5vh, 62px);
   display: grid;
-  gap: .18em;
-  font-family: 'Bodoni Moda', 'Times New Roman', serif;
+  gap: 0.18em;
+  font-family: "Bodoni Moda", "Times New Roman", serif;
   font-weight: 400;
   font-size: clamp(15px, 1.75vw, 27px);
   line-height: 1;
-  letter-spacing: .30em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--cream);
 }
@@ -91,11 +104,11 @@
   left: clamp(18px, 3vw, 54px);
   top: clamp(150px, 24vh, 240px);
   display: grid;
-  gap: .95em;
+  gap: 0.95em;
   font-family: var(--ui);
-  font-size: clamp(7.5px, .62vw, 9.5px);
+  font-size: clamp(7.5px, 0.62vw, 9.5px);
   font-weight: 400;
-  letter-spacing: .38em;
+  letter-spacing: 0.38em;
   text-transform: uppercase;
   color: #7b6f66;
   line-height: 1;
@@ -107,7 +120,7 @@
   width: 26px;
   height: 1px;
   background: #6a5a4c;
-  margin: .5em 0;
+  margin: 0.5em 0;
 }
 
 .chrono__hint {
@@ -115,29 +128,36 @@
   top: clamp(26px, 5.5vh, 62px);
   text-align: right;
   font-family: var(--ui);
-  font-size: clamp(7.5px, .62vw, 9.5px);
-  letter-spacing: .34em;
+  font-size: clamp(7.5px, 0.62vw, 9.5px);
+  letter-spacing: 0.34em;
   text-transform: uppercase;
   color: var(--amber);
   line-height: 2;
 }
-.chrono__hint i { margin-left: auto; }
+.chrono__hint i {
+  margin-left: auto;
+}
 
 .chrono__note {
   font-family: var(--ui);
-  font-size: clamp(7.5px, .6vw, 9.5px);
-  letter-spacing: .34em;
+  font-size: clamp(7.5px, 0.6vw, 9.5px);
+  letter-spacing: 0.34em;
   text-transform: uppercase;
   color: #9a6a44;
   line-height: 2.1;
 }
-.chrono__note--bl { left: clamp(18px, 3vw, 54px); bottom: clamp(20px, 5vh, 56px); }
+.chrono__note--bl {
+  left: clamp(18px, 3vw, 54px);
+  bottom: clamp(20px, 5vh, 56px);
+}
 .chrono__note--br {
   right: clamp(18px, 3vw, 54px);
   bottom: clamp(20px, 5vh, 56px);
   text-align: right;
 }
-.chrono__note--br i { margin-left: auto; }
+.chrono__note--br i {
+  margin-left: auto;
+}
 
 /* --------------------------------------------------------------------------
    The deck of years
@@ -161,26 +181,28 @@
   padding: 0;
   background: none;
   cursor: default;
-  transform: translate(-16%, -128%) scale(calc(.88 + .12 * var(--near, 0)));
+  transform: translate(-16%, -128%) scale(calc(0.88 + 0.12 * var(--near, 0)));
   transform-origin: 0 100%;
   font-family: var(--ui);
   font-weight: 600;
-  letter-spacing: .035em;
+  letter-spacing: 0.035em;
   line-height: 1;
   color: color-mix(in srgb, #eccfa4 calc(58% + 42% * var(--near, 0)), #c99055);
-  opacity: calc(var(--in, 0) * (.72 + .28 * var(--near, 0)));
+  opacity: calc(var(--in, 0) * (0.72 + 0.28 * var(--near, 0)));
   text-shadow:
-    0 0 5px rgba(255, 150, 60, calc(.22 + .18 * var(--near, 0))),
-    0 0 16px rgba(255, 70, 20, calc(.12 + .26 * var(--near, 0)));
-  transition: color .5s ease, text-shadow .5s ease;
+    0 0 5px rgba(255, 150, 60, calc(0.22 + 0.18 * var(--near, 0))),
+    0 0 16px rgba(255, 70, 20, calc(0.12 + 0.26 * var(--near, 0)));
+  transition:
+    color 0.5s ease,
+    text-shadow 0.5s ease;
   will-change: transform, opacity;
 }
 .yr-tag.is-active {
   color: #fff4e4;
   text-shadow:
-    0 0 5px rgba(255, 170, 90, .45),
-    0 0 18px rgba(255, 70, 20, .5),
-    0 0 42px rgba(255, 40, 10, .3);
+    0 0 5px rgba(255, 170, 90, 0.45),
+    0 0 18px rgba(255, 70, 20, 0.5),
+    0 0 42px rgba(255, 40, 10, 0.3);
 }
 
 .yr {
@@ -200,15 +222,12 @@
      into one transform keeps it on the compositor. */
   /* the measured point is the centre of the card's PHOTO, which sits about
      30% down the finished card, so that is what is anchored */
-  transform:
-    translate(-50%, -30%)
-    translateZ(calc(var(--near, 0) * 46px))
-    translateY(calc((1 - var(--in, 0)) * 26px))
-    rotate(var(--tilt, 0deg))
-    scale(calc(.94 + .06 * var(--near, 0)));
+  transform: translate(-50%, -30%) translateZ(calc(var(--near, 0) * 46px))
+    translateY(calc((1 - var(--in, 0)) * 26px)) rotate(var(--tilt, 0deg))
+    scale(calc(0.94 + 0.06 * var(--near, 0)));
   opacity: var(--in, 0);
   will-change: transform, opacity;
-  transition: filter .45s ease;
+  transition: filter 0.45s ease;
 }
 
 .yr__frame {
@@ -216,19 +235,29 @@
   display: block;
   padding: 7px;
   border-radius: 10px;
-  background:
-    linear-gradient(160deg, rgba(38, 26, 20, .92), rgba(14, 10, 9, .96));
-  border: 1px solid rgba(255, 150, 80, calc(.14 + .5 * var(--near, 0)));
+  background: linear-gradient(
+    160deg,
+    rgba(38, 26, 20, 0.92),
+    rgba(14, 10, 9, 0.96)
+  );
+  border: 1px solid rgba(255, 150, 80, calc(0.14 + 0.5 * var(--near, 0)));
   box-shadow:
-    0 18px 46px -18px rgba(0, 0, 0, .9),
+    0 18px 46px -18px rgba(0, 0, 0, 0.9),
     0 0 calc(6px + 46px * var(--near, 0))
-      rgba(255, 62, 20, calc(.05 + .40 * var(--near, 0))),
-    inset 0 1px 0 rgba(255, 190, 140, .07);
-  transition: border-color .45s ease, box-shadow .45s ease, background .45s ease;
+      rgba(255, 62, 20, calc(0.05 + 0.4 * var(--near, 0))),
+    inset 0 1px 0 rgba(255, 190, 140, 0.07);
+  transition:
+    border-color 0.45s ease,
+    box-shadow 0.45s ease,
+    background 0.45s ease;
 }
 .yr.is-active .yr__frame {
-  border-color: rgba(255, 92, 44, .95);
-  background: linear-gradient(160deg, rgba(48, 26, 18, .95), rgba(18, 10, 8, .97));
+  border-color: rgba(255, 92, 44, 0.95);
+  background: linear-gradient(
+    160deg,
+    rgba(48, 26, 18, 0.95),
+    rgba(18, 10, 8, 0.97)
+  );
 }
 
 .yr__img {
@@ -238,11 +267,9 @@
   object-fit: cover;
   border-radius: 6px;
   /* the far years read as older: cooler, flatter, further back in memory */
-  filter:
-    saturate(calc(.55 + .55 * var(--near, 0)))
-    brightness(calc(.62 + .48 * var(--near, 0)))
-    contrast(1.05);
-  transition: filter .5s ease;
+  filter: saturate(calc(0.55 + 0.55 * var(--near, 0)))
+    brightness(calc(0.62 + 0.48 * var(--near, 0))) contrast(1.05);
+  transition: filter 0.5s ease;
 }
 
 .yr__body {
@@ -254,35 +281,37 @@
   font-family: var(--ui);
   font-weight: 300;
   font-size: clamp(13px, 1.15vw, 19px);
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   line-height: 1;
   color: color-mix(in srgb, #d9cfc6 calc(100% - 60% * var(--near, 0)), #fff3e8);
 }
 .yr__key {
   display: block;
-  margin-top: .5em;
+  margin-top: 0.5em;
   font-family: var(--ui);
   font-weight: 600;
-  font-size: clamp(7.5px, .62vw, 9.5px);
-  letter-spacing: .22em;
+  font-size: clamp(7.5px, 0.62vw, 9.5px);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: color-mix(in srgb, #a89a90 calc(100% - 75% * var(--near, 0)), #ffb488);
 }
 .yr__lines {
   display: grid;
-  gap: .18em;
-  margin-top: .5em;
+  gap: 0.18em;
+  margin-top: 0.5em;
 }
 .yr__lines i {
   font-style: normal;
   font-family: var(--ui);
-  font-size: clamp(7px, .56vw, 8.6px);
-  letter-spacing: .16em;
+  font-size: clamp(7px, 0.56vw, 8.6px);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #8d8078;
-  transition: color .5s ease;
+  transition: color 0.5s ease;
 }
-.yr.is-active .yr__lines i { color: #c9bab0; }
+.yr.is-active .yr__lines i {
+  color: #c9bab0;
+}
 
 .yr__go {
   position: absolute;
@@ -293,11 +322,19 @@
   color: #ffd9c2;
   opacity: 0;
   transform: translate(-3px, 3px);
-  transition: opacity .4s ease, transform .5s var(--ease-out);
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s var(--ease-out);
 }
-.yr.is-active .yr__go { opacity: .95; transform: none; }
+.yr.is-active .yr__go {
+  opacity: 0.95;
+  transform: none;
+}
 
-.yr:focus-visible .yr__frame { outline: 2px solid var(--amber); outline-offset: 3px; }
+.yr:focus-visible .yr__frame {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
 
 /* --------------------------------------------------------------------------
    Portrait — the timeline becomes a vertical descent rather than a squeezed arc
@@ -306,38 +343,121 @@
 /* On a phone the deck holds ONE card at a time: six stacked cards in a tall
    frame would be a pile, so the vertical year rail becomes the control and the
    active card holds the stage beside it. */
-.chrono.is-portrait .chrono__deck { perspective: none; }
+.chrono.is-portrait .chrono__deck {
+  perspective: none;
+}
 .chrono.is-portrait .yr {
-  transform:
-    translate(-50%, -50%)
-    translateY(calc((1 - var(--near, 0)) * 22px))
-    scale(calc(.94 + .06 * var(--near, 0)));
+  transform: translate(-50%, -50%) translateY(calc((1 - var(--near, 0)) * 22px))
+    scale(calc(0.94 + 0.06 * var(--near, 0)));
   /* only the active card is visible and hittable */
   opacity: calc(var(--in, 0) * max(0, var(--near, 0) * 3 - 2));
   pointer-events: none;
-  transition: opacity .45s ease, transform .55s var(--ease-out);
+  transition:
+    opacity 0.45s ease,
+    transform 0.55s var(--ease-out);
 }
-.chrono.is-portrait .yr.is-active { pointer-events: auto; }
-.chrono.is-portrait .yr__lines { display: grid; }
+.chrono.is-portrait .yr.is-active {
+  pointer-events: auto;
+}
+.chrono.is-portrait .yr__lines {
+  display: grid;
+}
 
 /* the year numerals become the tap targets */
 .chrono.is-portrait .yr-tag {
-  transform: translate(-50%, -50%) scale(calc(.9 + .18 * var(--near, 0)));
+  transform: translate(-50%, -50%) scale(calc(0.9 + 0.18 * var(--near, 0)));
   padding: 10px 14px;
   margin: -10px -14px;
   pointer-events: auto;
   cursor: pointer;
-  opacity: calc(var(--in, 0) * (.42 + .58 * var(--near, 0)));
+  opacity: calc(var(--in, 0) * (0.42 + 0.58 * var(--near, 0)));
 }
-.chrono.is-portrait .chrono__hint { top: auto; bottom: clamp(18px, 4vh, 44px); }
+.chrono.is-portrait .chrono__hint {
+  top: auto;
+  bottom: clamp(18px, 4vh, 44px);
+}
 
 @media (max-width: 760px) {
-  .chrono { height: 200svh; }
-  .chrono__rail { display: none; }
-  .chrono__note--bl { display: none; }
+  .chrono {
+    height: 200svh;
+  }
+
+  .chrono__rail {
+    display: none;
+  }
+
+  .chrono__note--bl {
+    display: none;
+  }
+
+  /* Mobile scene title */
+  .chrono__title {
+    left: 18px;
+    top: 24px;
+    gap: 3px;
+    max-width: 170px;
+
+    font-size: 16px;
+    line-height: 1.05;
+    letter-spacing: 0.2em;
+
+    z-index: 10;
+  }
+
+  /* Small helper text at bottom-right */
+  .chrono__hint {
+    right: 16px;
+    bottom: 18px;
+    top: auto;
+
+    font-size: 7px;
+    line-height: 1.7;
+    letter-spacing: 0.24em;
+
+    z-index: 10;
+  }
+
+  .chrono__note--br {
+    display: none;
+  }
+
+  /* Compact vertical year rail on mobile */
+  .chrono.is-portrait .yr-tag {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+
+    padding: 5px 8px;
+    margin: -5px -8px;
+
+    transform: translate(-50%, -50%) scale(calc(0.92 + 0.08 * var(--near, 0)));
+
+    opacity: calc(var(--in, 0) * (0.45 + 0.55 * var(--near, 0)));
+
+    text-shadow:
+      0 0 5px rgba(255, 150, 60, 0.25),
+      0 0 14px rgba(255, 70, 20, calc(0.1 + 0.25 * var(--near, 0)));
+
+    z-index: 4;
+  }
+
+  /* Active year gets emphasis without becoming enormous */
+  .chrono.is-portrait .yr-tag.is-active {
+    color: #fff4e4;
+
+    text-shadow:
+      0 0 6px rgba(255, 170, 90, 0.55),
+      0 0 20px rgba(255, 70, 20, 0.65);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .chrono__title, .chrono__rail, .chrono__hint, .chrono__note,
-  .yr, .yr__frame, .yr__img { transition-duration: .01ms !important; }
+  .chrono__title,
+  .chrono__rail,
+  .chrono__hint,
+  .chrono__note,
+  .yr,
+  .yr__frame,
+  .yr__img {
+    transition-duration: 0.01ms !important;
+  }
 }

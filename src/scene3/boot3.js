@@ -51,7 +51,7 @@ export async function initChrono() {
     el.setAttribute('aria-label', `${y.year} — ${y.key}`);
     el.innerHTML =
       `<span class="yr__frame">`
-      + `<img class="yr__img" src="public/years/${y.year}.jpg" alt="" `
+      + `<img class="yr__img" src="public/years/${y.year}.webp" alt="" `
       + `loading="lazy" decoding="async">`
       + `<span class="yr__body">`
       + `<span class="yr__year">${y.year}</span>`
@@ -110,7 +110,9 @@ export async function initChrono() {
       const n = L.nodes[i];
       labels[i].style.left = `${n[0]}px`;
       labels[i].style.top = `${n[1]}px`;
-      labels[i].style.fontSize = `${Math.max(19, c.w * 0.30)}px`;
+      labels[i].style.fontSize = portrait
+        ? '28px'
+        : `${Math.max(19, c.w * 0.30)}px`;
     }
     section.classList.toggle('is-portrait', portrait);
   }

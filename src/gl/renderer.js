@@ -1,6 +1,3 @@
-// Minimal WebGL2 helpers: programs, uniforms, textures, a unit quad.
-// Deliberately small - the interesting work is in stage.js and the shaders.
-
 export function createGL(canvas, opts = {}) {
   const gl = canvas.getContext('webgl2', {
     alpha: false,

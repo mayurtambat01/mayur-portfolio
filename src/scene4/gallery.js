@@ -1,11 +1,3 @@
-// Scene four's canvas: the environment. Two passes -
-//   1  room   the extracted reference plate, staged and re-lit (shaders4.js)
-//   2  post   grain + vignette, shared with scene three
-//
-// The cards and the figure are DOM (buttons and an img over this canvas),
-// placed from the same fitCover() mapping the room pass samples with, so the
-// photograph and the interactive layer can never drift apart.
-
 import { program, unitQuad, texture, upload, bind, loadImage } from '../gl/renderer.js';
 import { V4, F4_ROOM } from '../gl/shaders4.js';
 import { F3_POST } from '../gl/shaders3.js';

@@ -10,40 +10,37 @@
 export const FRAME = [1600, 900];
 
 export const CARDS = [
-  { id: 'p01_timeless', title: 'Timeless Experiences',
-    box: [213, 72, 384, 273], depth: 0.45,
+  { id: 'p01_timeless', title: 'StayNest Room Management',
+    box: [213, 72, 384, 273], depth: 0.55,
     tint: [0.309, 0.334, 0.382] },
-  { id: 'p02_game', title: 'More Than A Game',
-    box: [63, 251, 428, 269], depth: 0.25,
+  {
+    id: 'p02_game', title: 'Bulk Email Automation API',
+    box: [85, 330, 300, 188],depth: 0.25,
     tint: [0.249, 0.267, 0.295] },
-  { id: 'p03_build', title: 'Build Without Limits',
-    box: [566, 41, 471, 288], depth: 0.6,
+  { id: 'p03_build', title: 'StayNest Owner Dashboard',
+    box: [566, 41, 471, 288], depth: 0.20,
     tint: [0.414, 0.291, 0.291] },
-  { id: 'p04_driven', title: 'Driven by Better Design',
-    box: [998, 95, 460, 377], depth: 0.45,
+  { id: 'p04_driven', title: 'Java Full Stack Developer',
+    box: [998, 25, 460, 377], depth: 0.45,
     tint: [0.322, 0.278, 0.261] },
-  { id: 'p05_ideas', title: 'Your Ideas In Motion',
-    box: [394, 358, 232, 198], depth: 0.8,
+  { id: 'p05_ideas', title: 'Spring Boot Backend',
+    box: [430, 365, 220, 188], depth: 0.8,
     tint: [0.39, 0.303, 0.234] },
-  { id: 'p06_sound', title: 'Sound & Second Motion',
-    box: [568, 364, 173, 203], depth: 0.9,
+
+  { id: 'p06_sound', title: 'MySQL Database',
+    box: [690, 365, 190, 188], depth: 0.9,
     tint: [0.336, 0.324, 0.333] },
-  { id: 'p07_food', title: 'Good Food Brighter Moods',
-    box: [698, 366, 211, 204], depth: 1.0,
+
+  { id: 'p07_food', title: 'React.js Frontend',
+    box: [920, 365, 220, 188], depth: 0.8,
     tint: [0.336, 0.243, 0.217] },
-  { id: 'p08_travel', title: 'Travel Explore Belong',
-    box: [844, 370, 195, 206], depth: 0.9,
-    tint: [0.26, 0.32, 0.366] },
-  { id: 'p09_space', title: 'Find Your Space',
-    box: [988, 364, 231, 208], depth: 0.8,
-    tint: [0.336, 0.283, 0.269] },
-  { id: 'p10_play', title: 'Play Create Repeat',
+  { id: 'p10_play', title: 'Full Stack Workflow',
     box: [1181, 251, 355, 242], depth: 0.3,
     tint: [0.448, 0.305, 0.235] },
-  { id: 'p11_cleaner', title: 'Designing A Cleaner Tomorrow',
+  { id: 'p11_cleaner', title: 'Sustainable Tech Solutions',
     box: [118, 467, 345, 243], depth: 0.1,
     tint: [0.311, 0.339, 0.263] },
-  { id: 'p12_steps', title: 'Small Steps Big Change',
+  { id: 'p12_steps', title: 'Continuous Learning',
     box: [1139, 478, 325, 234], depth: 0.1,
     tint: [0.31, 0.317, 0.302] },
 ];
@@ -72,11 +69,12 @@ export function fitCover(w, h) {
 // Entries: card index -> centre x/y (viewport fractions), width (vw fraction).
 // --------------------------------------------------------------------------
 export const PORTRAIT = new Map([
-  [2, { cx: 0.50, cy: 0.235, w: 0.80 }],   // build
-  [0, { cx: 0.235, cy: 0.385, w: 0.50 }],  // timeless
-  [3, { cx: 0.77, cy: 0.39, w: 0.48 }],    // driven
-  [6, { cx: 0.325, cy: 0.53, w: 0.29 }],   // food
-  [7, { cx: 0.675, cy: 0.53, w: 0.29 }],   // travel
-  [10, { cx: 0.20, cy: 0.815, w: 0.48 }],  // cleaner
-  [11, { cx: 0.80, cy: 0.815, w: 0.48 }],  // steps
+  [2, { cx: 0.50, cy: 0.235, w: 0.80 }],  // StayNest Dashboard
+  [0, { cx: 0.235, cy: 0.385, w: 0.50 }], // StayNest Room Management
+  [3, { cx: 0.77, cy: 0.39, w: 0.48 }],   // Java Full Stack
+  [4, { cx: 0.25, cy: 0.54, w: 0.34 }],   // Spring Boot
+  [5, { cx: 0.50, cy: 0.54, w: 0.30 }],   // MySQL
+  [6, { cx: 0.75, cy: 0.54, w: 0.34 }],   // React
+  [8, { cx: 0.20, cy: 0.815, w: 0.48 }],  // p11
+  [9, { cx: 0.80, cy: 0.815, w: 0.48 }],  // p12
 ]);

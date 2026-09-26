@@ -1,16 +1,3 @@
-// Scene four's lifecycle: rebuild the reference as living layers, then run
-// the assembly. The environment is canvas (gallery.js); the twelve project
-// cards are DOM buttons wearing sprites cut from the reference itself; the
-// figure is the reference's own pixels, matted. Everything is placed through
-// one fitCover() mapping, so the layers agree to the pixel.
-//
-// Interaction model:
-//   pointer  -> a damped -1..1 pair; the deck yaws a couple of degrees, each
-//               card drifts by its depth (near flanks move most, the far row
-//               least), the figure counters gently, the plate slides opposite
-//   hover    -> the card lifts toward the camera; its siblings ease back
-//   scroll   -> past the intro, the whole universe dollies subtly toward you
-
 import { createGL } from '../gl/renderer.js';
 import { Gallery } from './gallery.js';
 import { CARDS, PERSON, PORTRAIT, fitCover } from './layout4.js';
@@ -55,8 +42,41 @@ export async function initGallery() {
     el.style.zIndex = String(10 + Math.round((1 - c.depth) * 20));
     el.style.setProperty('--i', String(i));   // float dephasing
     el.innerHTML = `<span class="g-card__in">`
-      + `<img src="public/projects/${c.id}.png" alt="" `
-      + `draggable="false" loading="eager" decoding="async"></span>`;
+      + `<img src="public/projects/${c.id}.webp" alt="" `
+      + `draggable="false" loading="lazy" decoding="async"></span>`;
+
+    // StayNest card
+    if (c.id === 'p01_timeless') {
+      el.setAttribute(
+        'aria-label',
+        'Open StayNest Room Rental Management System'
+      );
+
+      el.addEventListener('click', () => {
+        window.open(
+          'https://stay-nest-gold.vercel.app',
+          '_blank',
+          'noopener,noreferrer'
+        );
+      });
+    }
+
+    // Bulk Email Automation API card
+    if (c.id === 'p02_game') {
+      el.setAttribute(
+        'aria-label',
+        'Open Bulk Email Automation API on GitHub'
+      );
+
+      el.addEventListener('click', () => {
+        window.open(
+          'https://github.com/mayurtambat01/spring-boot-bulk-email-api',
+          '_blank',
+          'noopener,noreferrer'
+        );
+      });
+    }
+
     deck.appendChild(el);
     return el;
   });
@@ -85,7 +105,12 @@ export async function initGallery() {
         el.style.top = `${p.cy * h - (cw * c.box[3] / c.box[2]) / 2}px`;
       } else {
         el.style.display = '';
-        el.style.width = `${c.box[2] * f.s}px`;
+
+        const cw = c.box[2] * f.s;
+        const ch = c.box[3] * f.s;
+
+        el.style.width = `${cw}px`;
+        el.style.height = `${ch}px`;
         el.style.left = `${c.box[0] * f.s + f.ox}px`;
         el.style.top = `${c.box[1] * f.s + f.oy}px`;
       }

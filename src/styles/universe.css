@@ -28,24 +28,6 @@
   box-shadow: 0 -1px 0 0 #000;
 }
 
-#uniFilm {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  /* the film is 16:9; any other viewport crops rather than letterboxes,
-     keeping the figure centred and the frame full-bleed */
-  object-fit: cover;
-  object-position: 50% 42%;
-  opacity: 0;
-  transform: scale(1.045);
-  transition: opacity 1.9s var(--ease-out), transform 3.2s var(--ease-out);
-}
-.universe.is-on #uniFilm {
-  opacity: 1;
-  transform: scale(1);
-}
-
 /* --------------------------------------------------------------------------
    The chapter title, set over the film. Top-centre is the one region the
    footage keeps dark (the ceiling above the figure), so the text lives there
@@ -61,10 +43,14 @@
   text-align: center;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 1.3s var(--ease-out) 0.75s,
-              transform 1.6s var(--ease-out) 0.75s;
+  transition:
+    opacity 1.3s var(--ease-out) 0.75s,
+    transform 1.6s var(--ease-out) 0.75s;
 }
-.universe.is-on .universe__title { opacity: 1; transform: translate(-50%, 0); }
+.universe.is-on .universe__title {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
 
 .universe__over {
   margin: 0 0 0.9em;
@@ -72,13 +58,13 @@
   font-size: clamp(7.5px, 0.62vw, 9.5px);
   font-weight: 500;
   letter-spacing: 0.5em;
-  text-indent: 0.5em;        /* recentre what the tracking pushes right */
+  text-indent: 0.5em; /* recentre what the tracking pushes right */
   text-transform: uppercase;
   color: #b98a6a;
 }
 .universe__name {
   margin: 0;
-  font-family: 'Bodoni Moda', 'Times New Roman', serif;
+  font-family: "Bodoni Moda", "Times New Roman", serif;
   font-weight: 400;
   font-size: clamp(20px, 2.3vw, 36px);
   line-height: 1.22;
@@ -86,7 +72,9 @@
   text-indent: 0.26em;
   text-transform: uppercase;
   color: #f2e8dc;
-  text-shadow: 0 0 0.6em rgba(0, 0, 0, 0.9), 0 0 2em rgba(0, 0, 0, 0.7);
+  text-shadow:
+    0 0 0.6em rgba(0, 0, 0, 0.9),
+    0 0 2em rgba(0, 0, 0, 0.7);
 }
 .universe__sub {
   margin: 1.1em 0 0;
@@ -100,7 +88,10 @@
 }
 
 @media (max-width: 760px) {
-  .universe__name { letter-spacing: 0.18em; text-indent: 0.18em; }
+  .universe__name {
+    letter-spacing: 0.18em;
+    text-indent: 0.18em;
+  }
 }
 
 /* breathes to black across the film's loop point so the cut is never seen,
@@ -114,14 +105,856 @@
   transition: opacity 0.45s ease;
 }
 
-.universe.is-fallback::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #000 url('../../public/media/universe.jpg') center / cover no-repeat;
+@media (prefers-reduced-motion: reduce) {
+  .universe__title {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+    transform: none;
+  }
+  .universe.is-on .universe__title {
+    transform: translate(-50%, 0);
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  #uniFilm, .universe__title { transition-duration: 0.01ms; transition-delay: 0s; transform: none; }
-  .universe.is-on .universe__title { transform: translate(-50%, 0); }
+/* ================================================================
+   MAYUR — DEVELOPER UNIVERSE
+   ================================================================ */
+
+.dev-universe {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 55%,
+      rgba(190, 45, 20, 0.18),
+      transparent 30%
+    ),
+    radial-gradient(circle at 50% 50%, #16100e 0%, #080706 45%, #000 80%);
+}
+
+.universe__title {
+  z-index: 10;
+}
+
+.dev-core {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+
+  width: 190px;
+  height: 190px;
+
+  border: 1px solid rgba(255, 105, 65, 0.45);
+  border-radius: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  color: #fff;
+
+  box-shadow:
+    0 0 40px rgba(255, 75, 30, 0.15),
+    inset 0 0 30px rgba(255, 75, 30, 0.08);
+}
+
+.dev-core span {
+  font-family: "Oswald", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  opacity: 0.6;
+}
+
+.dev-core strong {
+  margin-top: 8px;
+  font-family: "Oswald", sans-serif;
+  font-size: 21px;
+  letter-spacing: 0.12em;
+}
+
+.tech-card {
+  position: absolute;
+
+  min-width: 135px;
+  padding: 18px 22px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+
+  background: rgba(18, 16, 15, 0.82);
+
+  color: #fff;
+  text-align: center;
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(255, 80, 35, 0.06);
+}
+
+.tech-card strong {
+  display: block;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 17px;
+  letter-spacing: 0.08em;
+}
+
+.tech-card span {
+  display: block;
+  margin-top: 5px;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+
+  opacity: 0.45;
+}
+
+/* Card positions */
+
+.tech-card--java {
+  left: 12%;
+  top: 30%;
+}
+
+.tech-card--spring {
+  right: 12%;
+  top: 27%;
+}
+
+.tech-card--react {
+  left: 27%;
+  top: 50%;
+}
+
+.tech-card--mysql {
+  right: 27%;
+  top: 50%;
+}
+
+.tech-card--js {
+  left: 10%;
+  top: 69%;
+}
+
+.tech-card--api {
+  right: 10%;
+  top: 68%;
+}
+
+.tech-card--git {
+  left: 32%;
+  top: 78%;
+}
+
+.tech-card--postman {
+  right: 32%;
+  top: 78%;
+}
+
+/* Decorative orbit rings */
+
+.dev-orbit {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+
+  border: 1px solid rgba(255, 80, 40, 0.14);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.dev-orbit--one {
+  width: 440px;
+  height: 440px;
+}
+
+.dev-orbit--two {
+  width: 720px;
+  height: 720px;
+
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Mayur Developer Universe title override */
+.universe .universe__title {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  width: 100%;
+
+  transform: translateX(-50%);
+
+  z-index: 100;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+
+  text-align: center;
+  pointer-events: none;
+}
+
+.universe .universe__over,
+.universe .universe__name,
+.universe .universe__sub {
+  position: relative;
+  z-index: 101;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ================================================================
+   Developer Universe — Motion
+   ================================================================ */
+
+@keyframes devFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.tech-card {
+  animation: devFloat 5s ease-in-out infinite;
+}
+
+.tech-card--java {
+  animation-delay: 0s;
+}
+
+.tech-card--spring {
+  animation-delay: -1.2s;
+}
+
+.tech-card--react {
+  animation-delay: -2.1s;
+}
+
+.tech-card--mysql {
+  animation-delay: -3.1s;
+}
+
+.tech-card--js {
+  animation-delay: -1.7s;
+}
+
+.tech-card--api {
+  animation-delay: -2.7s;
+}
+
+.tech-card--git {
+  animation-delay: -3.7s;
+}
+
+.tech-card--postman {
+  animation-delay: -0.8s;
+}
+
+@keyframes corePulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 40px rgba(255, 75, 30, 0.15),
+      inset 0 0 30px rgba(255, 75, 30, 0.08);
+  }
+
+  50% {
+    box-shadow:
+      0 0 75px rgba(255, 75, 30, 0.28),
+      inset 0 0 45px rgba(255, 75, 30, 0.13);
+  }
+}
+
+.dev-core {
+  animation: corePulse 4s ease-in-out infinite;
+}
+
+/* ================================================================
+   Developer Universe — Card Interaction
+   ================================================================ */
+
+.tech-card {
+  transition:
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    scale 0.35s ease;
+}
+
+.tech-card:hover {
+  scale: 1.07;
+
+  border-color: rgba(255, 105, 65, 0.65);
+
+  background: rgba(35, 20, 16, 0.94);
+
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.65),
+    0 0 30px rgba(255, 80, 35, 0.22);
+}
+
+.tech-card:hover strong {
+  text-shadow: 0 0 16px rgba(255, 120, 80, 0.45);
+}
+
+.tech-card strong,
+.tech-card span {
+  transition:
+    opacity 0.35s ease,
+    text-shadow 0.35s ease;
+}
+
+.tech-card:hover span {
+  opacity: 0.8;
+}
+
+/* ================================================================
+   Developer Universe — Premium Card Design
+   ================================================================ */
+
+.tech-card {
+  overflow: hidden;
+  isolation: isolate;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.012)
+    ),
+    rgba(10, 9, 9, 0.78);
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Small glowing accent line */
+.tech-card::before {
+  content: "";
+  position: absolute;
+
+  left: 18%;
+  right: 18%;
+  top: 0;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 100, 60, 0.85),
+    transparent
+  );
+
+  opacity: 0.55;
+
+  box-shadow: 0 0 14px rgba(255, 75, 35, 0.6);
+}
+
+/* Moving light reflection */
+.tech-card::after {
+  content: "";
+  position: absolute;
+
+  top: -100%;
+  left: -60%;
+
+  width: 45%;
+  height: 300%;
+
+  transform: rotate(25deg);
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.055),
+    transparent
+  );
+
+  transition: left 0.7s ease;
+
+  pointer-events: none;
+}
+
+.tech-card:hover::after {
+  left: 130%;
+}
+
+.tech-card:hover {
+  scale: 1.08;
+
+  border-color: rgba(255, 100, 60, 0.55);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 90, 45, 0.09),
+      rgba(255, 255, 255, 0.025)
+    ),
+    rgba(15, 11, 10, 0.92);
+
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(255, 75, 35, 0.16),
+    inset 0 1px 0 rgba(255, 150, 110, 0.12);
+}
+
+.tech-card strong {
+  position: relative;
+  z-index: 2;
+}
+
+.tech-card span {
+  position: relative;
+  z-index: 2;
+}
+
+.dev-core {
+  isolation: isolate;
+
+  background: radial-gradient(
+    circle at 50% 35%,
+    rgba(255, 110, 65, 0.13),
+    rgba(25, 12, 9, 0.82) 55%,
+    rgba(5, 5, 5, 0.94)
+  );
+
+  border: 1px solid rgba(255, 100, 55, 0.55);
+
+  box-shadow:
+    0 0 60px rgba(255, 70, 25, 0.17),
+    inset 0 0 45px rgba(255, 70, 25, 0.09);
+}
+
+.dev-core::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(255, 100, 55, 0.12);
+
+  pointer-events: none;
+}
+
+.dev-core::after {
+  content: "";
+  position: absolute;
+
+  width: 6px;
+  height: 6px;
+
+  top: -4px;
+  left: 50%;
+
+  border-radius: 50%;
+
+  background: #ff7048;
+
+  box-shadow:
+    0 0 10px #ff7048,
+    0 0 25px rgba(255, 90, 45, 0.8);
+}
+
+/* ================================================================
+   Developer Universe — Cinematic Environment
+   ================================================================ */
+
+.dev-universe {
+  background:
+    radial-gradient(
+      circle at 50% 55%,
+      rgba(170, 45, 20, 0.16) 0%,
+      rgba(70, 20, 10, 0.08) 28%,
+      transparent 52%
+    ),
+    linear-gradient(180deg, #030303 0%, #080504 48%, #020202 100%);
+}
+
+/* Subtle technical grid */
+.dev-universe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+
+  background-size: 70px 70px;
+
+  mask-image: radial-gradient(circle at center, black 0%, transparent 72%);
+
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    black 0%,
+    transparent 72%
+  );
+
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Large atmospheric glow */
+.dev-universe::after {
+  content: "";
+  position: absolute;
+
+  left: 50%;
+  bottom: -35%;
+
+  width: 900px;
+  height: 500px;
+
+  transform: translateX(-50%);
+
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 65, 20, 0.12),
+    transparent 67%
+  );
+
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.dev-orbit {
+  pointer-events: none;
+}
+
+.dev-orbit--one {
+  border: 1px solid rgba(255, 85, 40, 0.22);
+
+  box-shadow:
+    0 0 50px rgba(255, 60, 20, 0.025),
+    inset 0 0 50px rgba(255, 60, 20, 0.025);
+}
+
+.dev-orbit--two {
+  border: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.dev-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(90px);
+}
+
+.dev-glow--one {
+  width: 320px;
+  height: 320px;
+
+  left: 5%;
+  top: 25%;
+
+  background: rgba(190, 45, 15, 0.07);
+}
+
+.dev-glow--two {
+  width: 380px;
+  height: 380px;
+
+  right: 3%;
+  bottom: 5%;
+
+  background: rgba(255, 80, 30, 0.055);
+}
+
+.tech-card strong::before {
+  content: "";
+  display: inline-block;
+
+  width: 5px;
+  height: 5px;
+
+  margin-right: 9px;
+  margin-bottom: 3px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 105, 65, 0.9);
+
+  box-shadow:
+    0 0 7px rgba(255, 90, 45, 0.8),
+    0 0 15px rgba(255, 90, 45, 0.35);
+
+  opacity: 0.65;
+
+  transition:
+    opacity 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tech-card:hover strong::before {
+  opacity: 1;
+
+  box-shadow:
+    0 0 8px rgba(255, 105, 65, 1),
+    0 0 22px rgba(255, 75, 30, 0.75);
+}
+
+/* ================================================================
+   Developer Universe — Responsive: Tablet / Small Laptop
+   ================================================================ */
+
+@media (min-width: 761px) and (max-width: 1100px) {
+  .universe .universe__title {
+    top: 5%;
+  }
+
+  .universe__name {
+    font-size: clamp(22px, 3vw, 30px);
+  }
+
+  .dev-core {
+    width: 165px;
+    height: 165px;
+  }
+
+  .dev-core strong {
+    font-size: 18px;
+  }
+
+  .dev-core span {
+    font-size: 9px;
+  }
+
+  .dev-orbit--one {
+    width: 390px;
+    height: 390px;
+  }
+
+  .dev-orbit--two {
+    width: 650px;
+    height: 650px;
+  }
+
+  .tech-card {
+    min-width: 115px;
+    padding: 15px 17px;
+  }
+
+  .tech-card strong {
+    font-size: 14px;
+  }
+
+  .tech-card span {
+    font-size: 8px;
+  }
+
+  .tech-card--java {
+    left: 5%;
+  }
+
+  .tech-card--spring {
+    right: 5%;
+  }
+
+  .tech-card--react {
+    left: 18%;
+  }
+
+  .tech-card--mysql {
+    right: 18%;
+  }
+
+  .tech-card--js {
+    left: 4%;
+  }
+
+  .tech-card--api {
+    right: 4%;
+  }
+
+  .tech-card--git {
+    left: 26%;
+  }
+
+  .tech-card--postman {
+    right: 26%;
+  }
+}
+
+/* ================================================================
+   Developer Universe — Responsive: Mobile
+   ================================================================ */
+
+@media (max-width: 760px) {
+  .universe {
+    height: 100svh;
+    min-height: 680px;
+  }
+
+  /* ---------- Title ---------- */
+
+  .universe .universe__title {
+    top: 4%;
+    width: 92%;
+  }
+
+  .universe__over {
+    margin-bottom: 0.7em;
+    font-size: 7px;
+  }
+
+  .universe__name {
+    font-size: clamp(19px, 6vw, 25px);
+    line-height: 1.15;
+    letter-spacing: 0.14em;
+    text-indent: 0.14em;
+  }
+
+  .universe__sub {
+    margin-top: 0.8em;
+    font-size: 6.5px;
+    letter-spacing: 0.25em;
+    text-indent: 0.25em;
+  }
+
+  /* ---------- Central Core ---------- */
+
+  .dev-core {
+    top: 30%;
+
+    width: 125px;
+    height: 125px;
+  }
+
+  .dev-core span {
+    font-size: 7px;
+    letter-spacing: 0.28em;
+  }
+
+  .dev-core strong {
+    margin-top: 6px;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ---------- Orbit Rings ---------- */
+
+  .dev-orbit {
+    top: 30%;
+  }
+
+  .dev-orbit--one {
+    width: 230px;
+    height: 230px;
+  }
+
+  .dev-orbit--two {
+    width: 350px;
+    height: 350px;
+  }
+
+  /* ---------- Technology Cards ---------- */
+
+  .tech-card {
+    min-width: 0;
+    width: calc(50% - 30px);
+
+    padding: 12px 8px;
+
+    border-radius: 9px;
+
+    animation-duration: 6s;
+  }
+
+  .tech-card strong {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  .tech-card strong::before {
+    width: 4px;
+    height: 4px;
+
+    margin-right: 6px;
+    margin-bottom: 2px;
+  }
+
+  .tech-card span {
+    margin-top: 4px;
+
+    font-size: 7px;
+    letter-spacing: 0.12em;
+  }
+
+  /* ---------- Two-column layout ---------- */
+
+  .tech-card--java,
+  .tech-card--react,
+  .tech-card--js,
+  .tech-card--git {
+    left: 18px;
+    right: auto;
+  }
+
+  .tech-card--spring,
+  .tech-card--mysql,
+  .tech-card--api,
+  .tech-card--postman {
+    right: 18px;
+    left: auto;
+  }
+
+  .tech-card--java,
+  .tech-card--spring {
+    top: 46%;
+  }
+
+  .tech-card--react,
+  .tech-card--mysql {
+    top: 58%;
+  }
+
+  .tech-card--js,
+  .tech-card--api {
+    top: 70%;
+  }
+
+  .tech-card--git,
+  .tech-card--postman {
+    top: 82%;
+  }
+
+  /* ---------- Mobile interaction ---------- */
+
+  .tech-card:hover {
+    scale: 1.03;
+  }
+
+  /* ---------- Background ---------- */
+
+  .dev-universe::before {
+    background-size: 45px 45px;
+    opacity: 0.35;
+  }
+
+  .dev-glow--one {
+    width: 200px;
+    height: 200px;
+  }
+
+  .dev-glow--two {
+    width: 220px;
+    height: 220px;
+  }
 }

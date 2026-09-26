@@ -12,33 +12,33 @@
 export const YEARS = [
   {
     year: 2021,
-    key: 'Beginning',
-    lines: ['New city', 'New chapter', 'Bigger dreams'],
+    key: 'Foundation',
+    lines: ['Computer Engineering', 'Programming Basics', 'Started Learning'],
   },
   {
     year: 2022,
-    key: 'Exploration',
-    lines: ['Learned design', 'Found direction'],
+    key: 'Prgramming',
+    lines: ['Java Fundamentals', 'OOP Concepts', 'Problem Solving'],
   },
   {
     year: 2023,
-    key: 'Practice',
-    lines: ['Built skills', 'Made projects', 'Kept going'],
+    key: 'Backend',
+    lines: ['Spring Boot', 'MySQL Database', 'REST APIs'],
   },
   {
     year: 2024,
-    key: 'Growth',
-    lines: ['Real projects', 'Real people', 'Real learning'],
+    key: 'Graduation',
+    lines: ['B.Tech Completed', 'Computer Engineering', 'Full Stack Journey'],
   },
   {
     year: 2025,
-    key: 'Opportunities',
-    lines: ['Collaborated', 'Solved problems', 'Stepped up'],
+    key: 'Full Stack',
+    lines: ['React.js Frontend', 'Spring Boot Backend', 'MySQL Integration'],
   },
   {
     year: 2026,
-    key: 'Next chapter',
-    lines: ['Bigger goals', 'More impact', 'Still designing'],
+    key: 'Building',
+    lines: ['StayNest Project', 'Full Stack Development', 'Career Ready'],
   },
 ];
 
@@ -120,9 +120,13 @@ export function fitScene(w, h) {
     const top = h * 0.255;
     const step = h * 0.088;
     nodes = REF.nodes.map((_, i) => [railX + i * w * 0.006, top + i * step]);
-    const cw = Math.min(w * 0.62, 330);
+    const cw = Math.min(w * 0.58, 260);
+
     cards = REF.nodes.map((_, i) => ({
-      x: w * 0.60, y: h * 0.50, w: cw, i,
+      x: w * 0.69,
+      y: h * 0.48, 
+      w: cw,
+      i,
     }));
     pivot = [w * 0.52, h * 0.075];
     floor = [w * 0.5, h * 0.965];

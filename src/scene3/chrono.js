@@ -286,26 +286,26 @@ export class Chrono {
       fg.clear(fg.COLOR_BUFFER_BIT);
     }
 
-    g.blendFunc(g.ONE, g.ONE_MINUS_SRC_ALPHA);
-    {
-      const pr = progs.figure;
-      g.useProgram(pr.p);
-      const fh = L.figure.h * this.dpr;
-      const fw = fh * this.figAspect;
-      const fx = L.figure.cx * this.dpr - fw * 0.5 + camX * W * 0.35;
-      const fy = L.figure.feet * this.dpr - fh + camY * H * 0.35;
-      g.uniform4f(pr.u.uRect, fx, fy, fw, fh);
-      g.uniform2f(pr.u.uRes, W, H);
-      g.uniform1i(pr.u.uFig, bind(g, tex.figure, 0));
-      g.uniform1i(pr.u.uGrain, bind(g, tex.grain, 1));
-      g.uniform1f(pr.u.uOpacity, s.figure);
-      g.uniform1f(pr.u.uRim, 0.5 + 0.7 * s.rings);
-      g.uniform1f(pr.u.uHeat, this.heat);
-      // he is lit from wherever the active year currently is
-      const lx = activePos[0] - L.figure.cx / this.cssW;
-      g.uniform2f(pr.u.uLightDir, lx * aspect, -0.42);
-      g.drawArrays(g.TRIANGLE_STRIP, 0, 4);
-    }
+    // g.blendFunc(g.ONE, g.ONE_MINUS_SRC_ALPHA);
+    // {
+    //   const pr = progs.figure;
+    //   g.useProgram(pr.p);
+    //   const fh = L.figure.h * this.dpr;
+    //   const fw = fh * this.figAspect;
+    //   const fx = L.figure.cx * this.dpr - fw * 0.5 + camX * W * 0.35;
+    //   const fy = L.figure.feet * this.dpr - fh + camY * H * 0.35;
+    //   g.uniform4f(pr.u.uRect, fx, fy, fw, fh);
+    //   g.uniform2f(pr.u.uRes, W, H);
+    //   g.uniform1i(pr.u.uFig, bind(g, tex.figure, 0));
+    //   g.uniform1i(pr.u.uGrain, bind(g, tex.grain, 1));
+    //   g.uniform1f(pr.u.uOpacity, s.figure);
+    //   g.uniform1f(pr.u.uRim, 0.5 + 0.7 * s.rings);
+    //   g.uniform1f(pr.u.uHeat, this.heat);
+    //   // he is lit from wherever the active year currently is
+    //   const lx = activePos[0] - L.figure.cx / this.cssW;
+    //   g.uniform2f(pr.u.uLightDir, lx * aspect, -0.42);
+    //   g.drawArrays(g.TRIANGLE_STRIP, 0, 4);
+    // }
 
     // the near arcs of the floor, over his feet — he stands INSIDE the
     // mechanism: far side behind him, near side in front

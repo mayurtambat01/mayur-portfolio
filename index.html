@@ -3,9 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>GIREESH — Artist · Creative · Storyteller</title>
-<meta name="description" content="Welcome to my world. Portfolio of Gireesh — artist, creative, storyteller.">
+<title>Mayur Tambat — Java Full Stack Developer</title>
+<meta name="description" content="Portfolio of Mayur Tambat — Java Full Stack Developer specializing in Java, Spring Boot, React.js, MySQL, and full-stack web development.">
+<meta name="keywords" content="Mayur Tambat, Java Full Stack Developer, Java Developer, Spring Boot Developer, React Developer, MySQL, REST API, Full Stack Developer Portfolio">
+<meta name="author" content="Mayur Tambat">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#000000">
+<!-- Open Graph / Social Sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mayur Tambat — Java Full Stack Developer">
+<meta property="og:description" content="Portfolio of Mayur Tambat — Java Full Stack Developer specializing in Java, Spring Boot, React.js, MySQL, and full-stack web development.">
+<meta property="og:site_name" content="Mayur Tambat Portfolio">
+<!-- Twitter / X Social Sharing -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mayur Tambat — Java Full Stack Developer">
+<meta name="twitter:description" content="Portfolio of Mayur Tambat — Java Full Stack Developer specializing in Java, Spring Boot, React.js, MySQL, and full-stack web development.">
+<link rel="icon" type="image/png" href="public/icons/favicon.png">
 
 <link rel="preload" href="public/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="public/fonts/oswald-500.woff2" as="font" type="font/woff2" crossorigin>
@@ -15,103 +28,118 @@
 <link rel="stylesheet" href="src/styles/chrono.css">
 <link rel="stylesheet" href="src/styles/projects.css">
 <link rel="stylesheet" href="src/styles/finale.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mayur Tambat",
+  "jobTitle": "Java Full Stack Developer",
+  "email": "mailto:mayurtambat01@gmail.com",
+  "sameAs": [
+    "https://www.linkedin.com/in/mayurtambat01/",
+    "https://github.com/mayurtambat01",
+    "https://www.instagram.com/mayur_tambat_01/"
+  ],
+  "knowsAbout": [
+    "Java",
+    "Spring Boot",
+    "React.js",
+    "JavaScript",
+    "MySQL",
+    "Spring Data JPA",
+    "Hibernate",
+    "REST APIs",
+    "HTML",
+    "CSS",
+    "Git",
+    "Postman"
+  ]
+}
+</script>
 </head>
 <body>
 
 <!-- the real heading, for search engines and screen readers; the visible
      wordmark is drawn on the canvas so video can be clipped inside its letters -->
-<h1 class="sr-only">GIREESH — Artist, Creative, Storyteller. Welcome to my world.</h1>
+<h1 class="sr-only">Mayur Tambat — Java Full Stack Developer. Welcome to my portfolio.</h1>
 
-<div class="stage-wrap">
-  <canvas id="stage" aria-hidden="true"></canvas>
+<!-- =========================================================
+     NEW SCENE 1 — MAYUR HERO
+========================================================= -->
 
-  <!-- ------------------------------------------------------------------ -->
-  <header class="hdr" id="hdr">
-    <svg class="hdr__rule" id="hdrRule" aria-hidden="true" preserveAspectRatio="none">
-      <polyline id="hdrRulePath" fill="none" stroke="currentColor" stroke-width="1.25"
-                vector-effect="non-scaling-stroke"/>
-    </svg>
+<section class="mayur-home" id="mayurHome" aria-label="Mayur Tambat Portfolio">
 
-    <a class="hdr__mark" href="#" aria-label="Gireesh, home">
-      <span class="mark-word">GIREESH</span>
-    </a>
+    <!-- =========================================================
+     NEW MAYUR CINEMATIC HERO
+     Later this Scene 5 will become Scene 1
+========================================================= -->
+<div class="mayur-hero5" id="mayurHero">
 
-    <span class="hdr__div" aria-hidden="true"></span>
+    <!-- Top identity -->
+    <div class="mayur-hero5__identity">
+      <strong>MAYUR TAMBAT</strong>
 
-    <p class="hdr__roles">
-      <span>Artist</span><span>Creative</span><span>Storyteller</span>
-    </p>
+      <span class="mayur-hero5__identity-line"></span>
 
-    <nav class="hdr__nav" aria-label="Primary">
-      <ul>
-        <li><a href="#" class="is-active" data-nav>Home</a></li>
-        <li><a href="#" data-nav>Work</a></li>
-        <li><a href="#" data-nav>About</a></li>
-        <li><a href="#" data-nav>Journal</a></li>
-        <li><a href="#" data-nav>Contact</a></li>
-      </ul>
-    </nav>
-
-    <div class="hdr__meta">
-      <span class="hdr__metaLabel">Portfolio — MMXXVI</span>
-      <span class="hdr__pips" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>
+        JAVA FULL STACK<br>
+        DEVELOPER
+      </span>
     </div>
 
-    <button class="hdr__burger" id="burger" aria-expanded="false" aria-controls="hdrNavMobile">
-      <span aria-hidden="true"></span><span aria-hidden="true"></span>
-      <span class="sr-only">Menu</span>
-    </button>
-  </header>
-
-  <!-- ------------------------------------------------------------------ -->
-  <div class="furniture" aria-hidden="true">
-    <p class="welcome" id="welcome">
-      <b class="welcome__dots">•••</b>
-      <span class="welcome__text">Welcome to my world</span>
-      <b class="welcome__dots">•••</b>
-    </p>
-
-    <p class="chip chip--artist" id="chipArtist"><span>•Artist Gireesh•</span></p>
-    <p class="chip chip--legend" id="chipLegend"><span>•Legend•</span></p>
-
-    <div class="arrows arrows--l" id="arrowsL"></div>
-    <div class="arrows arrows--r" id="arrowsR"></div>
-    <!-- only the bottom-right grid remains: the top-left one sat under the
-         navigation and fought with it -->
-    <div class="grid-dots grid-dots--br" id="dotsBR"></div>
-  </div>
-
-  <!-- ------------------------------------------------------------------ -->
-  <nav class="menu" id="menu" aria-label="Primary, expanded" hidden>
-    <ul>
-      <li><a href="#" class="is-active" data-nav>Home</a></li>
-      <li><a href="#" data-nav>Work</a></li>
-      <li><a href="#" data-nav>About</a></li>
-      <li><a href="#" data-nav>Journal</a></li>
-      <li><a href="#" data-nav>Contact</a></li>
-    </ul>
-    <p class="menu__tag">••• Welcome to my world •••</p>
-  </nav>
-
-  <!-- ------------------------------------------------------------------ -->
-  <div class="boot" id="boot">
-    <div class="boot__bar"><i id="bootFill"></i></div>
-    <button class="boot__enter" id="bootEnter" hidden>
-      <span>Enter</span>
-    </button>
-  </div>
-
-  <noscript>
-    <div class="fallback">
-      <p>GIREESH</p>
-      <small>This opening is an animated experience. Please enable JavaScript.</small>
+    <div class="mayur-hero5__index" aria-hidden="true">
+      PORTFOLIO — 2026
     </div>
-  </noscript>
-</div>
+
+    <!-- Background glow -->
+    <div class="mayur-hero5__glow" aria-hidden="true"></div>
+
+    <!-- Giant background name -->
+    <div class="mayur-hero5__name" aria-hidden="true">
+      MAYUR
+    </div>
+
+    <!-- Main professional image -->
+    <div class="mayur-hero5__person">
+      <img
+        src="public/fin/mayur-laptop.webp"
+        alt="Mayur Tambat — Java Full Stack Developer"
+        draggable="false"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      >
+    </div>
+
+    <!-- Left text -->
+    <div class="mayur-hero5__intro">
+      <span>A</span>
+      <strong>JAVA FULL STACK</strong>
+      <span>DEVELOPER</span>
+    </div>
+
+    <!-- Right skills -->
+    <div class="mayur-hero5__skills">
+      <span>JAVA</span>
+      <span>SPRING BOOT</span>
+      <span>REACT.JS</span>
+      <span>MYSQL</span>
+      <strong>FULL STACK</strong>
+    </div>
+
+    <!-- Bottom-right text -->
+    <div class="mayur-hero5__build">
+      <span>BUILD</span>
+      <span>LEARN</span>
+      <span>CREATE</span>
+      <span>GROW</span>
+    </div>
+
+  </div>
+
+</section>
 
 <main class="flow">
-  <!-- the hero above is position:fixed, so this reserves its scroll height -->
-  <div class="hero-spacer" aria-hidden="true"></div>
 
   <!-- ==================================================================== -->
   <!-- The creative-universe film itself, played as supplied. All labels and
@@ -119,20 +147,82 @@
        needs and a veil that breathes over the loop seam. -->
   <section class="universe" id="universe" aria-labelledby="uniTitle">
     <header class="universe__title" id="uniTitle">
-      <p class="universe__over">Scene 02</p>
-      <h2 class="universe__name">The Creative<br>Universe</h2>
-      <p class="universe__sub">Tools · Ideas · People · Impact</p>
-    </header>
+    <p class="universe__over">Scene 02</p>
+    <h2 class="universe__name">The Developer<br>Universe</h2>
+    <p class="universe__sub">Code · Build · Learn · Create</p>
+  </header>
     <ul class="sr-only">
-      <li>Figma</li><li>Photoshop</li><li>After Effects</li><li>Premiere Pro</li>
-      <li>Lightroom</li><li>Notion</li><li>Framer</li><li>Webflow</li>
-      <li>Spline</li><li>Claude</li><li>ChatGPT</li><li>Midjourney</li>
+      <li>Java</li>
+      <li>Spring Boot</li>
+      <li>React.js</li>
+      <li>JavaScript</li>
+      <li>MySQL</li>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>Spring Data JPA</li>
+      <li>Hibernate</li>
+      <li>REST APIs</li>
+      <li>Git</li>
+      <li>Postman</li>
     </ul>
-    <video id="uniFilm" muted playsinline loop preload="metadata"
-           poster="public/media/universe.jpg" aria-hidden="true">
-      <source src="public/media/universe.mp4" type="video/mp4">
-    </video>
+
+    <div class="dev-universe" aria-hidden="true">
+
+      <div class="dev-glow dev-glow--one"></div>
+      <div class="dev-glow dev-glow--two"></div>
+
+      <div class="dev-orbit dev-orbit--one"></div>
+      <div class="dev-orbit dev-orbit--two"></div>
+
+      <div class="dev-core">
+        <span>FULL STACK</span>
+        <strong>DEVELOPER</strong>
+      </div>
+
+      <div class="tech-card tech-card--java">
+        <strong>JAVA</strong>
+        <span>Backend</span>
+      </div>
+
+      <div class="tech-card tech-card--spring">
+        <strong>SPRING BOOT</strong>
+        <span>Framework</span>
+      </div>
+
+      <div class="tech-card tech-card--react">
+        <strong>REACT.JS</strong>
+        <span>Frontend</span>
+      </div>
+
+      <div class="tech-card tech-card--mysql">
+        <strong>MYSQL</strong>
+        <span>Database</span>
+      </div>
+
+      <div class="tech-card tech-card--js">
+        <strong>JAVASCRIPT</strong>
+        <span>Web</span>
+      </div>
+
+      <div class="tech-card tech-card--api">
+        <strong>REST API</strong>
+        <span>Integration</span>
+      </div>
+
+      <div class="tech-card tech-card--git">
+        <strong>GIT</strong>
+        <span>Version Control</span>
+      </div>
+
+      <div class="tech-card tech-card--postman">
+        <strong>POSTMAN</strong>
+        <span>API Testing</span>
+      </div>
+
+    </div>
+
     <div class="universe__veil" id="uniVeil" aria-hidden="true"></div>
+
   </section>
 
   <!-- ==================================================================== -->
@@ -141,23 +231,23 @@
       <canvas id="chronoStage" aria-hidden="true"></canvas>
 
       <h2 class="chrono__title" id="chronoTitle">
-        <span>A</span><span>Journey</span><span>Through</span><span>Time</span>
+        <span>My</span><span>Developer</span><span>Journey</span>
       </h2>
       <p class="chrono__rail" aria-hidden="true">
         <i></i>
-        <span>Ideas</span><span>Experiences</span><span>People</span>
-        <span>Projects</span><span>Me</span>
+        <span>Java</span><span>Full Stack</span><span>Projects</span>
+        <span>Learning</span><span>Growth</span>
         <i></i>
       </p>
 
       <p class="chrono__hint" aria-hidden="true">
-        Move<br>to travel<br>through time<i></i>
+        Explore<br>my developer<br>journey<i></i>
       </p>
       <p class="chrono__note chrono__note--bl" aria-hidden="true">
-        Same<br>curiosity<br>a brighter<br>tomorrow
+        Always<br>learning<br>always<br>building
       </p>
       <p class="chrono__note chrono__note--br" aria-hidden="true">
-        Still<br>designing<br>what's<br>next<i></i>
+        Ready<br>to build<br>what's<br>next<i></i>
       </p>
 
       <div class="chrono__deck" id="chronoDeck"></div>
@@ -176,21 +266,25 @@
       <div class="gallery__world">
         <div class="gallery__deck" id="galleryDeck"></div>
         <img class="gallery__person" id="galleryPerson"
-             src="public/projects/person.png" alt="" draggable="false">
+             src="public/projects/person.png" 
+             alt="" 
+             draggable="false"
+             loading="lazy"
+             decoding="async">
       </div>
 
       <h2 class="g-label g-label--projects" id="galleryTitle">Projects</h2>
       <p class="g-label g-label--ideas" aria-hidden="true">
-        Ideas<br>Interfaces<br>Experiences<br><b>Real Impact</b>
+        Java<br>Spring Boot<br>React.js<br><b>Full Stack</b>
       </p>
       <p class="g-label g-label--scroll" aria-hidden="true">
-        Scroll<br>Explore<br>Interact
+        Scroll<br>Explore<br>Projects
       </p>
       <p class="g-label g-label--real" aria-hidden="true">
-        Real<br>Projects<br>Real<br>Stories
+        Real<br>Projects<br>Real<br>Solutions
       </p>
       <p class="g-label g-label--tomorrow" aria-hidden="true">
-        Designing<br>A Brighter<br>Tomorrow
+        Building<br>Ideas Into<br>Applications
       </p>
       <span class="g-label g-label--num" id="galleryNum" aria-hidden="true">01</span>
     </div>
@@ -198,46 +292,153 @@
 
 </main>
 
-<!-- ====================================================================== -->
-<footer class="fin" id="fin" aria-label="Closing">
-  <div class="fin__pin">
-  <h2 class="sr-only">Gireesh</h2>
+<!-- =========================================================
+     SCENE 5 — CONNECT
+========================================================= -->
 
-  <div class="fin__stage1" id="finStage1">
-    <canvas id="finBack" aria-hidden="true"></canvas>
-    <canvas id="finMan" aria-hidden="true"></canvas>
+<footer class="fin" id="fin">
 
-    <p class="f-cap f-cap--tl" aria-hidden="true">
-      Ideas<br>Designs<br>Experiences<br>Real Impact
-    </p>
-    <blockquote class="f-cap f-cap--quote">
-      &ldquo;Good<br>Design<br>Smokes<br>Louder.&rdquo;
-    </blockquote>
-    <p class="f-cap f-cap--blw" aria-hidden="true">A<br>Designer&rsquo;s<br>World</p>
-    <p class="f-cap f-cap--tr" aria-hidden="true">
-      Same<br>Passion<br>A Brighter<br>Tomorrow
-    </p>
-    <p class="f-cap f-cap--br" aria-hidden="true">Design<br>Build<br>Explore<br>Repeat</p>
-  </div>
+  <section
+    class="connect5"
+    id="connect5"
+    aria-label="Connect with Mayur Tambat"
+  >
 
-  <div class="fin__dim" id="finDim" aria-hidden="true"></div>
+    <!-- Background cinematic glow -->
+    <div class="connect5__glow" aria-hidden="true"></div>
 
-  <!-- the second frame of the finale: slides in from the left on scroll.
-       Dormant until its image exists (see boot6's candidate list). -->
-  <figure class="fin__frame2" id="finFrame2" aria-hidden="true" hidden>
-    <img id="finFrame2Img" alt="" draggable="false" decoding="async">
-  </figure>
+    <!-- Top identity -->
+    <div class="connect5__top">
+      <span>05</span>
+      <span class="connect5__top-line"></span>
+      <span>CONNECT</span>
+    </div>
 
-  <div class="fin__bar">
-    <a href="#" data-nav>Contact</a>
-    <nav class="fin__soc" aria-label="Social">
-      <a href="#" rel="me">Instagram</a>
-      <a href="#" rel="me">Behance</a>
-      <a href="#" rel="me">LinkedIn</a>
+    <!-- Main heading -->
+    <div class="connect5__heading">
+      <p>JAVA FULL STACK DEVELOPER</p>
+
+      <h2>
+        LET'S BUILD<br>
+        SOMETHING <span>GREAT.</span>
+      </h2>
+    </div>
+
+    <!-- Main cinematic Scene 5 artwork -->
+    <div class="connect5__artwork" aria-hidden="true">
+      <img
+        src="public/fin/scene5-connect.webp"
+        alt=""
+        draggable="false"
+        loading="lazy"
+        decoding="async"
+      >
+    </div>
+
+
+    <!-- Mobile-only contact introduction -->
+    <div class="connect5__mobile-intro">
+
+      <span>LET'S CONNECT</span>
+
+      <h3>
+        HAVE AN IDEA?<br>
+        LET'S BUILD IT.
+      </h3>
+
+      <p>
+        Open to opportunities, collaborations<br>
+        and conversations about development.
+      </p>
+
+      <div class="connect5__mobile-line"></div>
+
+    </div>
+
+
+    <a class="connect5__resume"
+      href="public/resume/mayur-tambat-resume.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="View Mayur Tambat resume">
+      <span>RESUME</span>
+      <strong>VIEW MY RESUME</strong>
+      <i aria-hidden="true">↗</i>
+    </a>
+
+    <!-- Social / contact links -->
+    <nav class="connect5__socials" aria-label="Mayur Tambat social links">
+
+      <a
+        href="https://www.linkedin.com/in/mayurtambat01/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>01</span>
+        <strong>LINKEDIN</strong>
+        <small>Connect professionally</small>
+        <i aria-hidden="true">↗</i>
+      </a>
+
+      <a
+        href="https://github.com/mayurtambat01"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>02</span>
+        <strong>GITHUB</strong>
+        <small>Explore my code</small>
+        <i aria-hidden="true">↗</i>
+      </a>
+
+      <a
+        href="https://www.instagram.com/mayur_tambat_01/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>03</span>
+        <strong>INSTAGRAM</strong>
+        <small>Follow my journey</small>
+        <i aria-hidden="true">↗</i>
+      </a>
+
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mayurtambat01@gmail.com"
+         target="_blank"
+         rel="noopener noreferrer">
+        <span>04</span>
+        <strong>EMAIL</strong>
+        <small>mayurtambat01@gmail.com</small>
+        <i aria-hidden="true">↗</i>
+      </a>
+
     </nav>
-    <small class="fin__c">&copy; 2026 Gireesh &mdash; All rights reserved</small>
-  </div>
-  </div>
+
+
+    <!-- Bottom message -->
+    <div class="connect5__bottom">
+
+      <p>
+        HAVE AN IDEA?<br>
+        <strong>LET'S CONNECT.</strong>
+      </p>
+
+      <span>
+        BUILD&nbsp;&nbsp;•&nbsp;&nbsp;
+        LEARN&nbsp;&nbsp;•&nbsp;&nbsp;
+        CREATE&nbsp;&nbsp;•&nbsp;&nbsp;
+        GROW
+      </span>
+
+    </div>
+
+
+    <!-- Copyright -->
+    <small class="connect5__copyright">
+      © 2026 MAYUR TAMBAT — ALL RIGHTS RESERVED
+    </small>
+
+  </section>
+
 </footer>
 
 <script type="module" src="src/main.js"></script>
