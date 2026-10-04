@@ -61,6 +61,38 @@ export async function initGallery() {
       });
     }
 
+    // StayNest Owner Dashboard card
+    if (c.id === 'p03_build') {
+      el.setAttribute(
+        'aria-label',
+        'Open StayNest Property Management System'
+      );
+
+      el.addEventListener('click', () => {
+        window.open(
+          'https://stay-nest-gold.vercel.app',
+          '_blank',
+          'noopener,noreferrer'
+        );
+      });
+    }
+
+    // Java Full Stack Developer card
+    if (c.id === 'p04_driven') {
+      el.setAttribute(
+        'aria-label',
+        'Open Mayur Tambat GitHub Profile'
+      );
+
+      el.addEventListener('click', () => {
+        window.open(
+          'https://github.com/mayurtambat01',
+          '_blank',
+          'noopener,noreferrer'
+        );
+      });
+    }
+
     // Bulk Email Automation API card
     if (c.id === 'p02_game') {
       el.setAttribute(
