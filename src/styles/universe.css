@@ -1,19 +1,12 @@
-/* ==========================================================================
-   Scene two — the creative universe.
-   This is the supplied film played AS the section, not a recreation of it:
-   the cards, the red light-painting, the embers and every corner label are
-   part of the footage. The page's job is to present it cinematically — arrive
-   from black, hold the frame, and breathe over the loop seam — and to stay
-   out of its way.
-   ========================================================================== */
+/* =========================================================
+   SCENE 02 — CINEMATIC DEVELOPER UNIVERSE
+   ========================================================= */
 
 .flow {
   position: relative;
   z-index: 2;
 }
 
-/* The hero is position:fixed, so its scroll height has to be reserved here or
-   the universe would start at the top of the document and sit on top of it. */
 .hero-spacer {
   height: 100svh;
   pointer-events: none;
@@ -22,939 +15,1339 @@
 .universe {
   position: relative;
   height: 100svh;
-  background: #000;
+  min-height: 760px;
   overflow: hidden;
-  /* hard cut from the hero: two scenes, not a gradient between them */
-  box-shadow: 0 -1px 0 0 #000;
+  isolation: isolate;
+  background: #050403;
+  color: #fff;
 }
 
-/* --------------------------------------------------------------------------
-   The chapter title, set over the film. Top-centre is the one region the
-   footage keeps dark (the ceiling above the figure), so the text lives there
-   and clears the Ps and Claude cards that hold the upper corners.
-   -------------------------------------------------------------------------- */
+/* ==================== TITLE ==================== */
 
-.universe__title {
+.universe .universe__title {
   position: absolute;
-  top: clamp(26px, 6.5vh, 66px);
+  top: 4%;
   left: 50%;
-  transform: translate(-50%, 14px);
-  z-index: 2;
+  width: 94%;
+  transform: translateX(-50%);
   text-align: center;
-  pointer-events: none;
-  opacity: 0;
-  transition:
-    opacity 1.3s var(--ease-out) 0.75s,
-    transform 1.6s var(--ease-out) 0.75s;
-}
-.universe.is-on .universe__title {
+  z-index: 20;
   opacity: 1;
-  transform: translate(-50%, 0);
+  visibility: visible;
 }
 
 .universe__over {
-  margin: 0 0 0.9em;
-  font-family: var(--ui);
-  font-size: clamp(7.5px, 0.62vw, 9.5px);
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 0 0 12px;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(11px, 1.1vw, 16px);
   letter-spacing: 0.5em;
-  text-indent: 0.5em; /* recentre what the tracking pushes right */
   text-transform: uppercase;
-  color: #b98a6a;
+  color: #ff7626;
 }
+
+.universe__over::before,
+.universe__over::after {
+  content: "";
+  width: clamp(35px, 7vw, 110px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ff7626, transparent);
+}
+
 .universe__name {
   margin: 0;
-  font-family: "Bodoni Moda", "Times New Roman", serif;
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: clamp(34px, 4.2vw, 68px);
   font-weight: 400;
-  font-size: clamp(20px, 2.3vw, 36px);
-  line-height: 1.22;
-  letter-spacing: 0.26em;
-  text-indent: 0.26em;
+  line-height: 1.02;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #f2e8dc;
-  text-shadow:
-    0 0 0.6em rgba(0, 0, 0, 0.9),
-    0 0 2em rgba(0, 0, 0, 0.7);
+  color: #f5eee5;
+  text-shadow: 0 4px 30px #000;
 }
+
+.universe__name span {
+  display: block;
+  margin-top: 5px;
+  color: #ff7626;
+  font-size: 1.15em;
+  font-style: italic;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 35px rgba(255, 100, 20, 0.3);
+}
+
 .universe__sub {
-  margin: 1.1em 0 0;
-  font-family: var(--ui);
-  font-size: clamp(7.5px, 0.6vw, 9.5px);
-  font-weight: 400;
-  letter-spacing: 0.42em;
-  text-indent: 0.42em;
+  margin: 15px 0 0;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(9px, 0.9vw, 13px);
+  letter-spacing: 0.45em;
   text-transform: uppercase;
-  color: rgba(222, 200, 180, 0.55);
+  color: #c8b7aa;
 }
 
-@media (max-width: 760px) {
-  .universe__name {
-    letter-spacing: 0.18em;
-    text-indent: 0.18em;
-  }
-}
-
-/* breathes to black across the film's loop point so the cut is never seen,
-   and doubles as the entrance veil */
-.universe__veil {
-  position: absolute;
-  inset: 0;
-  background: #000;
-  opacity: 1;
-  pointer-events: none;
-  transition: opacity 0.45s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .universe__title {
-    transition-duration: 0.01ms;
-    transition-delay: 0s;
-    transform: none;
-  }
-  .universe.is-on .universe__title {
-    transform: translate(-50%, 0);
-  }
-}
-
-/* ================================================================
-   MAYUR — DEVELOPER UNIVERSE
-   ================================================================ */
+/* ==================== ENVIRONMENT ==================== */
 
 .dev-universe {
   position: absolute;
   inset: 0;
-  z-index: 1;
   overflow: hidden;
   background:
     radial-gradient(
-      circle at 50% 55%,
-      rgba(190, 45, 20, 0.18),
-      transparent 30%
+      ellipse at 50% 72%,
+      rgba(255, 90, 15, 0.18),
+      transparent 45%
     ),
-    radial-gradient(circle at 50% 50%, #16100e 0%, #080706 45%, #000 80%);
+    radial-gradient(
+      ellipse at 85% 30%,
+      rgba(0, 85, 150, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #030303, #100805, #030303);
 }
 
-.universe__title {
-  z-index: 10;
+.dev-stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, #ffb37c 1px, transparent 1.5px),
+    radial-gradient(circle, #fff 0.6px, transparent 1px);
+  background-size:
+    127px 139px,
+    83px 97px;
+  background-position:
+    12px 20px,
+    43px 56px;
+  opacity: 0.17;
+  pointer-events: none;
 }
 
-.dev-core {
+/* ==================== PLANET ==================== */
+
+.dev-planet {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: min(42vw, 540px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 8%,
+    #e58a42 0%,
+    #7d3216 12%,
+    #30150e 28%,
+    #100908 55%,
+    #030303 78%
+  );
+  border-top: 2px solid #ffb16a;
+  box-shadow:
+    0 -10px 45px rgba(255, 100, 20, 0.4),
+    inset 0 12px 35px rgba(255, 130, 40, 0.3);
+  opacity: 0.85;
+  z-index: 1;
+}
+
+/* ==================== ORBITS ==================== */
+
+.dev-orbit {
   position: absolute;
   left: 50%;
-  top: 55%;
+  top: 58%;
   transform: translate(-50%, -50%);
-
-  width: 190px;
-  height: 190px;
-
-  border: 1px solid rgba(255, 105, 65, 0.45);
   border-radius: 50%;
+  pointer-events: none;
+}
+
+.dev-orbit--one {
+  width: min(72vw, 950px);
+  height: 56%;
+  border: 2px solid rgba(255, 115, 35, 0.65);
+  box-shadow:
+    0 0 25px rgba(255, 90, 15, 0.25),
+    inset 0 0 25px rgba(255, 90, 15, 0.15);
+}
+
+.dev-orbit--two {
+  width: min(80vw, 1080px);
+  height: 66%;
+  border: 1px solid rgba(255, 115, 35, 0.15);
+}
+
+/* ==================== CINEMATIC FLOOR ==================== */
+
+.dev-floor {
+  position: absolute;
+  bottom: -15%;
+  left: -30%;
+  width: 160%;
+  height: 40%;
+  background-image:
+    linear-gradient(rgba(255, 100, 25, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 100, 25, 0.15) 1px, transparent 1px);
+  background-size: 65px 45px;
+  transform: perspective(300px) rotateX(45deg);
+  mask-image: linear-gradient(transparent, #000);
+  opacity: 0.6;
+}
+
+/* ==================== YOUR PORTRAIT ==================== */
+
+.dev-portrait {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  width: min(42vw, 550px);
+  height: 62%;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.dev-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 0 25px rgba(255, 100, 25, 0.2));
+}
+
+/* ==================== TECHNOLOGY CARDS ==================== */
+
+.universe .tech-card {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: clamp(95px, 10vw, 145px);
+  min-height: 95px;
+  padding: 12px 8px;
+  box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 9px;
 
-  text-align: center;
-  color: #fff;
+  border: 1px solid rgba(255, 135, 65, 0.8);
+  border-radius: 13px;
 
-  box-shadow:
-    0 0 40px rgba(255, 75, 30, 0.15),
-    inset 0 0 30px rgba(255, 75, 30, 0.08);
-}
-
-.dev-core span {
-  font-family: "Oswald", sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.35em;
-  opacity: 0.6;
-}
-
-.dev-core strong {
-  margin-top: 8px;
-  font-family: "Oswald", sans-serif;
-  font-size: 21px;
-  letter-spacing: 0.12em;
-}
-
-.tech-card {
-  position: absolute;
-
-  min-width: 135px;
-  padding: 18px 22px;
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-
-  background: rgba(18, 16, 15, 0.82);
-
-  color: #fff;
-  text-align: center;
+  background: linear-gradient(
+    145deg,
+    rgba(65, 37, 23, 0.85),
+    rgba(12, 10, 9, 0.95)
+  );
 
   box-shadow:
-    0 15px 40px rgba(0, 0, 0, 0.55),
-    0 0 20px rgba(255, 80, 35, 0.06);
-}
+    0 0 18px rgba(255, 100, 20, 0.2),
+    inset 0 0 14px rgba(255, 100, 20, 0.09),
+    0 12px 25px rgba(0, 0, 0, 0.6);
 
-.tech-card strong {
-  display: block;
-
-  font-family: "Oswald", sans-serif;
-  font-size: 17px;
-  letter-spacing: 0.08em;
-}
-
-.tech-card span {
-  display: block;
-  margin-top: 5px;
-
-  font-family: "Oswald", sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-
-  opacity: 0.45;
-}
-
-/* Card positions */
-
-.tech-card--java {
-  left: 12%;
-  top: 30%;
-}
-
-.tech-card--spring {
-  right: 12%;
-  top: 27%;
-}
-
-.tech-card--react {
-  left: 27%;
-  top: 50%;
-}
-
-.tech-card--mysql {
-  right: 27%;
-  top: 50%;
-}
-
-.tech-card--js {
-  left: 10%;
-  top: 69%;
-}
-
-.tech-card--api {
-  right: 10%;
-  top: 68%;
-}
-
-.tech-card--git {
-  left: 32%;
-  top: 78%;
-}
-
-.tech-card--postman {
-  right: 32%;
-  top: 78%;
-}
-
-/* Decorative orbit rings */
-
-.dev-orbit {
-  position: absolute;
-  left: 50%;
-  top: 55%;
-
-  border: 1px solid rgba(255, 80, 40, 0.14);
-  border-radius: 50%;
-
+  backdrop-filter: blur(10px);
+  z-index: 10;
   transform: translate(-50%, -50%);
+  animation: universeFloat 5s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+
+  transition:
+    scale 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
-.dev-orbit--one {
-  width: 440px;
-  height: 440px;
-}
-
-.dev-orbit--two {
-  width: 720px;
-  height: 720px;
-
-  border-color: rgba(255, 255, 255, 0.06);
-}
-
-/* Mayur Developer Universe title override */
-.universe .universe__title {
-  position: absolute;
-  top: 6%;
-  left: 50%;
-  width: 100%;
-
-  transform: translateX(-50%);
-
-  z-index: 100;
+.universe .tech-card img {
   display: block;
-  visibility: visible;
-  opacity: 1;
-
-  text-align: center;
-  pointer-events: none;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
 }
 
-.universe .universe__over,
-.universe .universe__name,
-.universe .universe__sub {
-  position: relative;
-  z-index: 101;
-  visibility: visible;
-  opacity: 1;
+.universe .tech-card strong {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(12px, 1.2vw, 17px);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #fff;
+  white-space: nowrap;
 }
 
-/* ================================================================
-   Developer Universe — Motion
-   ================================================================ */
-
-@keyframes devFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
+.universe .tech-card:hover {
+  scale: 1.09;
+  border-color: #ffc18b;
+  box-shadow:
+    0 0 30px rgba(255, 100, 20, 0.55),
+    inset 0 0 20px rgba(255, 100, 20, 0.15);
+  z-index: 15;
 }
 
-.tech-card {
-  animation: devFloat 5s ease-in-out infinite;
+.tech-card--next img {
+  filter: invert(1);
 }
+
+.tech-api-icon {
+  font-family: monospace;
+  font-size: 34px;
+  font-weight: bold;
+  color: #b47cff;
+}
+
+/* ==================== DESKTOP POSITIONS ==================== */
 
 .tech-card--java {
-  animation-delay: 0s;
-}
-
-.tech-card--spring {
-  animation-delay: -1.2s;
+  --x: 50%;
+  --y: 31%;
+  --delay: 0s;
 }
 
 .tech-card--react {
-  animation-delay: -2.1s;
+  --x: 34%;
+  --y: 35%;
+  --delay: -1s;
+}
+
+.tech-card--spring {
+  --x: 66%;
+  --y: 35%;
+  --delay: -2s;
 }
 
 .tech-card--mysql {
-  animation-delay: -3.1s;
+  --x: 22%;
+  --y: 46%;
+  --delay: -3s;
+}
+
+.tech-card--python {
+  --x: 78%;
+  --y: 46%;
+  --delay: -1.5s;
 }
 
 .tech-card--js {
-  animation-delay: -1.7s;
+  --x: 16%;
+  --y: 61%;
+  --delay: -2.5s;
 }
 
-.tech-card--api {
-  animation-delay: -2.7s;
+.tech-card--next {
+  --x: 84%;
+  --y: 61%;
+  --delay: -3.5s;
 }
 
 .tech-card--git {
-  animation-delay: -3.7s;
+  --x: 23%;
+  --y: 77%;
+  --delay: -0.5s;
+}
+
+.tech-card--api {
+  --x: 77%;
+  --y: 76%;
+  --delay: -4s;
 }
 
 .tech-card--postman {
-  animation-delay: -0.8s;
+  --x: 67%;
+  --y: 87%;
+  --delay: -1.8s;
 }
 
-@keyframes corePulse {
+/* ==================== BOTTOM BANNER ==================== */
+
+.dev-banner {
+  position: absolute;
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+
+  padding: 14px 36px;
+  border: 1px solid #ff8739;
+  border-radius: 6px;
+
+  background: linear-gradient(90deg, #170b05, #48200d, #170b05);
+
+  box-shadow:
+    0 0 25px rgba(255, 100, 20, 0.35),
+    inset 0 0 20px rgba(255, 100, 20, 0.12);
+
+  text-align: center;
+  white-space: nowrap;
+}
+
+.dev-banner span {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(12px, 1.6vw, 22px);
+  letter-spacing: 0.25em;
+  color: #fff1e4;
+}
+
+/* ==================== ANIMATION ==================== */
+
+@keyframes universeFloat {
   0%,
   100% {
-    box-shadow:
-      0 0 40px rgba(255, 75, 30, 0.15),
-      inset 0 0 30px rgba(255, 75, 30, 0.08);
+    transform: translate(-50%, -50%);
   }
 
   50% {
-    box-shadow:
-      0 0 75px rgba(255, 75, 30, 0.28),
-      inset 0 0 45px rgba(255, 75, 30, 0.13);
+    transform: translate(-50%, calc(-50% - 7px));
   }
 }
 
-.dev-core {
-  animation: corePulse 4s ease-in-out infinite;
-}
-
-/* ================================================================
-   Developer Universe — Card Interaction
-   ================================================================ */
-
-.tech-card {
-  transition:
-    border-color 0.35s ease,
-    background 0.35s ease,
-    box-shadow 0.35s ease,
-    scale 0.35s ease;
-}
-
-.tech-card:hover {
-  scale: 1.07;
-
-  border-color: rgba(255, 105, 65, 0.65);
-
-  background: rgba(35, 20, 16, 0.94);
-
-  box-shadow:
-    0 18px 50px rgba(0, 0, 0, 0.65),
-    0 0 30px rgba(255, 80, 35, 0.22);
-}
-
-.tech-card:hover strong {
-  text-shadow: 0 0 16px rgba(255, 120, 80, 0.45);
-}
-
-.tech-card strong,
-.tech-card span {
-  transition:
-    opacity 0.35s ease,
-    text-shadow 0.35s ease;
-}
-
-.tech-card:hover span {
-  opacity: 0.8;
-}
-
-/* ================================================================
-   Developer Universe — Premium Card Design
-   ================================================================ */
-
-.tech-card {
-  overflow: hidden;
-  isolation: isolate;
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.055),
-      rgba(255, 255, 255, 0.012)
-    ),
-    rgba(10, 9, 9, 0.78);
-
-  border: 1px solid rgba(255, 255, 255, 0.13);
-
-  box-shadow:
-    0 22px 50px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-/* Small glowing accent line */
-.tech-card::before {
-  content: "";
-  position: absolute;
-
-  left: 18%;
-  right: 18%;
-  top: 0;
-
-  height: 1px;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 100, 60, 0.85),
-    transparent
-  );
-
-  opacity: 0.55;
-
-  box-shadow: 0 0 14px rgba(255, 75, 35, 0.6);
-}
-
-/* Moving light reflection */
-.tech-card::after {
-  content: "";
-  position: absolute;
-
-  top: -100%;
-  left: -60%;
-
-  width: 45%;
-  height: 300%;
-
-  transform: rotate(25deg);
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.055),
-    transparent
-  );
-
-  transition: left 0.7s ease;
-
-  pointer-events: none;
-}
-
-.tech-card:hover::after {
-  left: 130%;
-}
-
-.tech-card:hover {
-  scale: 1.08;
-
-  border-color: rgba(255, 100, 60, 0.55);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 90, 45, 0.09),
-      rgba(255, 255, 255, 0.025)
-    ),
-    rgba(15, 11, 10, 0.92);
-
-  box-shadow:
-    0 25px 65px rgba(0, 0, 0, 0.7),
-    0 0 35px rgba(255, 75, 35, 0.16),
-    inset 0 1px 0 rgba(255, 150, 110, 0.12);
-}
-
-.tech-card strong {
-  position: relative;
-  z-index: 2;
-}
-
-.tech-card span {
-  position: relative;
-  z-index: 2;
-}
-
-.dev-core {
-  isolation: isolate;
-
-  background: radial-gradient(
-    circle at 50% 35%,
-    rgba(255, 110, 65, 0.13),
-    rgba(25, 12, 9, 0.82) 55%,
-    rgba(5, 5, 5, 0.94)
-  );
-
-  border: 1px solid rgba(255, 100, 55, 0.55);
-
-  box-shadow:
-    0 0 60px rgba(255, 70, 25, 0.17),
-    inset 0 0 45px rgba(255, 70, 25, 0.09);
-}
-
-.dev-core::before {
-  content: "";
-  position: absolute;
-  inset: -8px;
-
-  border-radius: 50%;
-  border: 1px solid rgba(255, 100, 55, 0.12);
-
-  pointer-events: none;
-}
-
-.dev-core::after {
-  content: "";
-  position: absolute;
-
-  width: 6px;
-  height: 6px;
-
-  top: -4px;
-  left: 50%;
-
-  border-radius: 50%;
-
-  background: #ff7048;
-
-  box-shadow:
-    0 0 10px #ff7048,
-    0 0 25px rgba(255, 90, 45, 0.8);
-}
-
-/* ================================================================
-   Developer Universe — Cinematic Environment
-   ================================================================ */
-
-.dev-universe {
-  background:
-    radial-gradient(
-      circle at 50% 55%,
-      rgba(170, 45, 20, 0.16) 0%,
-      rgba(70, 20, 10, 0.08) 28%,
-      transparent 52%
-    ),
-    linear-gradient(180deg, #030303 0%, #080504 48%, #020202 100%);
-}
-
-/* Subtle technical grid */
-.dev-universe::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-
-  background-size: 70px 70px;
-
-  mask-image: radial-gradient(circle at center, black 0%, transparent 72%);
-
-  -webkit-mask-image: radial-gradient(
-    circle at center,
-    black 0%,
-    transparent 72%
-  );
-
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-/* Large atmospheric glow */
-.dev-universe::after {
-  content: "";
-  position: absolute;
-
-  left: 50%;
-  bottom: -35%;
-
-  width: 900px;
-  height: 500px;
-
-  transform: translateX(-50%);
-
-  background: radial-gradient(
-    ellipse,
-    rgba(255, 65, 20, 0.12),
-    transparent 67%
-  );
-
-  filter: blur(35px);
-  pointer-events: none;
-}
-
-.dev-orbit {
-  pointer-events: none;
-}
-
-.dev-orbit--one {
-  border: 1px solid rgba(255, 85, 40, 0.22);
-
-  box-shadow:
-    0 0 50px rgba(255, 60, 20, 0.025),
-    inset 0 0 50px rgba(255, 60, 20, 0.025);
-}
-
-.dev-orbit--two {
-  border: 1px solid rgba(255, 255, 255, 0.055);
-}
-
-.dev-glow {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  filter: blur(90px);
-}
-
-.dev-glow--one {
-  width: 320px;
-  height: 320px;
-
-  left: 5%;
-  top: 25%;
-
-  background: rgba(190, 45, 15, 0.07);
-}
-
-.dev-glow--two {
-  width: 380px;
-  height: 380px;
-
-  right: 3%;
-  bottom: 5%;
-
-  background: rgba(255, 80, 30, 0.055);
-}
-
-.tech-card strong::before {
-  content: "";
-  display: inline-block;
-
-  width: 5px;
-  height: 5px;
-
-  margin-right: 9px;
-  margin-bottom: 3px;
-
-  border-radius: 50%;
-
-  background: rgba(255, 105, 65, 0.9);
-
-  box-shadow:
-    0 0 7px rgba(255, 90, 45, 0.8),
-    0 0 15px rgba(255, 90, 45, 0.35);
-
-  opacity: 0.65;
-
-  transition:
-    opacity 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.tech-card:hover strong::before {
-  opacity: 1;
-
-  box-shadow:
-    0 0 8px rgba(255, 105, 65, 1),
-    0 0 22px rgba(255, 75, 30, 0.75);
-}
-
-/* ================================================================
-   Developer Universe — Responsive: Tablet / Small Laptop
-   ================================================================ */
-
-@media (min-width: 761px) and (max-width: 1100px) {
-  .universe .universe__title {
-    top: 5%;
-  }
-
-  .universe__name {
-    font-size: clamp(22px, 3vw, 30px);
-  }
-
-  .dev-core {
-    width: 165px;
-    height: 165px;
-  }
-
-  .dev-core strong {
-    font-size: 18px;
-  }
-
-  .dev-core span {
-    font-size: 9px;
-  }
-
-  .dev-orbit--one {
-    width: 390px;
-    height: 390px;
-  }
-
-  .dev-orbit--two {
-    width: 650px;
-    height: 650px;
-  }
-
-  .tech-card {
-    min-width: 115px;
-    padding: 15px 17px;
-  }
-
-  .tech-card strong {
-    font-size: 14px;
-  }
-
-  .tech-card span {
-    font-size: 8px;
-  }
-
-  .tech-card--java {
-    left: 5%;
-  }
-
-  .tech-card--spring {
-    right: 5%;
-  }
-
-  .tech-card--react {
-    left: 18%;
-  }
-
-  .tech-card--mysql {
-    right: 18%;
-  }
-
-  .tech-card--js {
-    left: 4%;
-  }
-
-  .tech-card--api {
-    right: 4%;
-  }
-
-  .tech-card--git {
-    left: 26%;
-  }
-
-  .tech-card--postman {
-    right: 26%;
-  }
-}
-
-/* ================================================================
-   Developer Universe — Responsive: Mobile
-   ================================================================ */
+/* =========================================================
+   MOBILE — PORTRAIT CINEMATIC COMPOSITION
+   ========================================================= */
 
 @media (max-width: 760px) {
   .universe {
     height: 100svh;
-    min-height: 680px;
+    min-height: 780px;
   }
-
-  /* ---------- Title ---------- */
 
   .universe .universe__title {
     top: 4%;
-    width: 92%;
+    width: 96%;
   }
 
   .universe__over {
-    margin-bottom: 0.7em;
-    font-size: 7px;
+    font-size: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
   }
 
   .universe__name {
-    font-size: clamp(19px, 6vw, 25px);
-    line-height: 1.15;
-    letter-spacing: 0.14em;
-    text-indent: 0.14em;
+    font-size: clamp(25px, 7vw, 42px);
+    letter-spacing: 0.03em;
   }
 
-  .universe__sub {
-    margin-top: 0.8em;
-    font-size: 6.5px;
-    letter-spacing: 0.25em;
-    text-indent: 0.25em;
-  }
-
-  /* ---------- Central Core ---------- */
-
-  .dev-core {
-    top: 30%;
-
-    width: 125px;
-    height: 125px;
-  }
-
-  .dev-core span {
-    font-size: 7px;
-    letter-spacing: 0.28em;
-  }
-
-  .dev-core strong {
-    margin-top: 6px;
-    font-size: 14px;
+  .universe__name span {
+    font-size: 1.2em;
     letter-spacing: 0.1em;
   }
 
-  /* ---------- Orbit Rings ---------- */
+  .universe__sub {
+    font-size: 8px;
+    letter-spacing: 0.23em;
+    margin-top: 12px;
+  }
 
-  .dev-orbit {
-    top: 30%;
+  .dev-planet {
+    top: 34%;
+    width: 94%;
+
+    background:
+      radial-gradient(
+        ellipse at 50% 0%,
+        rgba(255, 160, 65, 0.65),
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at 30% 15%,
+        #a84a19 0%,
+        #49200e 25%,
+        #180b06 55%,
+        #050303 85%
+      );
+
+    border-top: 2px solid #ffb66e;
+
+    box-shadow:
+      0 -8px 20px rgba(255, 130, 40, 0.65),
+      0 -15px 60px rgba(255, 90, 15, 0.35),
+      inset 0 10px 35px rgba(255, 130, 40, 0.25);
+
+    opacity: 1;
   }
 
   .dev-orbit--one {
-    width: 230px;
-    height: 230px;
+    top: 51%;
+    width: 88%;
+    height: 48%;
   }
 
   .dev-orbit--two {
-    width: 350px;
-    height: 350px;
+    top: 51%;
+    width: 98%;
+    height: 54%;
   }
 
-  /* ---------- Technology Cards ---------- */
+  .dev-portrait {
+    bottom: 11%;
+    width: 100%;
+    height: 62%;
+  }
 
-  .tech-card {
-    min-width: 0;
-    width: calc(50% - 30px);
+  .dev-portrait img {
+    object-fit: contain;
+    object-position: center bottom;
+    filter: drop-shadow(0 0 18px rgba(255, 110, 30, 0.35));
+  }
 
-    padding: 12px 8px;
-
+  .universe .tech-card {
+    width: clamp(65px, 21vw, 95px);
+    min-height: 65px;
+    padding: 8px 4px;
+    gap: 5px;
     border-radius: 9px;
-
-    animation-duration: 6s;
   }
 
-  .tech-card strong {
-    font-size: 11px;
+  .universe .tech-card img {
+    width: 27px;
+    height: 27px;
+  }
+
+  .universe .tech-card strong {
+    font-size: clamp(10px, 2.8vw, 13px);
+    letter-spacing: 0;
+  }
+
+  .tech-api-icon {
+    font-size: 26px;
+  }
+
+  /* Mobile orbit positions */
+
+  .tech-card--java {
+    --x: 50%;
+    --y: 24%;
+  }
+
+  .tech-card--react {
+    --x: 25%;
+    --y: 31%;
+  }
+
+  .tech-card--spring {
+    --x: 75%;
+    --y: 31%;
+  }
+
+  .tech-card--mysql {
+    --x: 14%;
+    --y: 43%;
+  }
+
+  .tech-card--python {
+    --x: 86%;
+    --y: 43%;
+  }
+
+  .tech-card--js {
+    --x: 14%;
+    --y: 55%;
+  }
+
+  .tech-card--next {
+    --x: 86%;
+    --y: 55%;
+  }
+
+  .tech-card--git {
+    --x: 14%;
+    --y: 67%;
+  }
+
+  .tech-card--api {
+    --x: 86%;
+    --y: 67%;
+  }
+
+  .tech-card--postman {
+    --x: 85%;
+    --y: 79%;
+  }
+
+  .dev-banner {
+    bottom: 4%;
+    width: 80%;
+    padding: 12px 5px;
+    box-sizing: border-box;
+  }
+
+  .dev-banner span {
+    font-size: clamp(11px, 3.5vw, 15px);
+    letter-spacing: 0.18em;
+  }
+
+  .dev-floor {
+    height: 30%;
+    background-size: 35px 30px;
+  }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .universe .tech-card {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* =========================================================
+   SCENE 02 — MOBILE CINEMATIC REFINEMENT
+   ========================================================= */
+
+@media (max-width: 760px) {
+  /* Clean background inspired by Scene 01 */
+  .dev-universe {
+    background:
+      radial-gradient(
+        ellipse at 50% 62%,
+        rgba(100, 25, 8, 0.35),
+        transparent 60%
+      ),
+      linear-gradient(180deg, #050303 0%, #0c0403 55%, #050303 100%);
+  }
+
+  /* Remove bright planet and background effects */
+  .dev-planet,
+  .dev-stars,
+  .dev-floor {
+    display: none;
+  }
+
+  /* Subtle orbital rings */
+  .dev-orbit--one {
+    border: 1px solid rgba(255, 110, 35, 0.25);
+    box-shadow: none;
+  }
+
+  .dev-orbit--two {
+    border: 1px solid rgba(255, 110, 35, 0.08);
+    box-shadow: none;
+  }
+
+  /* Natural portrait appearance */
+  .dev-portrait img {
+    filter: none;
+  }
+
+  /* Premium dark technology cards */
+  .universe .tech-card {
+    background: linear-gradient(145deg, #211510, #0d0908);
+
+    border: 1px solid rgba(255, 120, 50, 0.45);
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+
+    backdrop-filter: none;
+  }
+
+  /* REST APIs — previous Next.js position */
+  .tech-card--api {
+    --x: 86%;
+    --y: 55%;
+  }
+
+  /* Postman — previous REST APIs position */
+  .tech-card--postman {
+    --x: 86%;
+    --y: 67%;
+  }
+
+  /* Minimal bottom banner */
+  .dev-banner {
+    background: linear-gradient(90deg, #100705, #241009, #100705);
+
+    border: 1px solid rgba(255, 120, 50, 0.55);
+    box-shadow: none;
+  }
+}
+
+/* =========================================================
+   SCENE 02 — FINAL MOBILE POLISH
+   ========================================================= */
+
+@media (max-width: 760px) {
+  /* Clean heading */
+  .universe__title {
+    padding-top: 8px;
+  }
+
+  /* Refined technology cards */
+  .universe .tech-card {
+    border: 1px solid rgba(255, 125, 55, 0.65);
+
+    background: linear-gradient(145deg, #211510, #100a08);
+
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.45),
+      inset 0 0 8px rgba(255, 110, 35, 0.04);
+  }
+
+  /* Smooth portrait bottom edge */
+  .dev-portrait img {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 94%,
+      transparent 100%
+    );
+
+    mask-image: linear-gradient(to bottom, #000 0%, #000 94%, transparent 100%);
+  }
+
+  /* Refined developer banner */
+  .dev-banner {
+    border: 1px solid rgba(255, 125, 55, 0.65);
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* =========================================================
+   SCENE 02 — DESKTOP CINEMATIC REFINEMENT
+   ========================================================= */
+
+@media (min-width: 761px) {
+  /* Fit entire scene within one screen */
+  .universe {
+    height: 100svh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Clean cinematic background */
+  .dev-universe {
+    background:
+      radial-gradient(
+        ellipse at 50% 65%,
+        rgba(100, 25, 8, 0.35),
+        transparent 60%
+      ),
+      linear-gradient(180deg, #050303 0%, #0c0403 55%, #050303 100%);
+  }
+
+  /* Remove excessive lighting */
+  .dev-planet,
+  .dev-stars,
+  .dev-floor {
+    display: none;
+  }
+
+  /* Heading */
+  .universe .universe__title {
+    top: 3%;
+    width: 95%;
+    padding: 0;
+  }
+
+  .universe__name {
+    font-size: clamp(28px, 5.8vh, 56px);
+    line-height: 1.02;
     letter-spacing: 0.06em;
   }
 
-  .tech-card strong::before {
-    width: 4px;
-    height: 4px;
-
-    margin-right: 6px;
-    margin-bottom: 2px;
+  .universe__name span {
+    margin-top: 3px;
+    font-size: 1.15em;
+    text-shadow: none;
   }
 
-  .tech-card span {
-    margin-top: 4px;
+  .universe__sub {
+    margin-top: 10px;
+    font-size: clamp(8px, 1.5vh, 12px);
+    letter-spacing: 0.35em;
+  }
 
-    font-size: 7px;
+  /* Subtle orbital rings */
+  .dev-orbit--one {
+    top: 57%;
+    width: min(65vw, 900px);
+    height: 58%;
+    border: 1px solid rgba(255, 110, 35, 0.25);
+    box-shadow: none;
+  }
+
+  .dev-orbit--two {
+    top: 57%;
+    width: min(73vw, 1000px);
+    height: 66%;
+    border: 1px solid rgba(255, 110, 35, 0.08);
+    box-shadow: none;
+  }
+
+  /* Developer portrait */
+  .dev-portrait {
+    bottom: 11%;
+    width: min(42vw, 540px);
+    height: 54%;
+  }
+
+  .dev-portrait img {
+    object-fit: contain;
+    object-position: center bottom;
+    filter: none;
+
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 94%,
+      transparent 100%
+    );
+
+    mask-image: linear-gradient(to bottom, #000 0%, #000 94%, transparent 100%);
+  }
+
+  /* Compact premium technology cards */
+  .universe .tech-card {
+    width: clamp(85px, 8.5vw, 125px);
+    height: clamp(58px, 11vh, 90px);
+    min-height: 0;
+    padding: 6px;
+    gap: 5px;
+
+    border-radius: 10px;
+    border: 1px solid rgba(255, 125, 55, 0.65);
+
+    background: linear-gradient(145deg, #211510, #100a08);
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+
+    backdrop-filter: none;
+  }
+
+  .universe .tech-card img {
+    width: clamp(22px, 4.5vh, 34px);
+    height: clamp(22px, 4.5vh, 34px);
+  }
+
+  .universe .tech-card strong {
+    font-size: clamp(11px, 2vh, 15px);
+  }
+
+  .tech-api-icon {
+    font-size: clamp(24px, 4.5vh, 34px);
+  }
+
+  /* Symmetrical technology arrangement */
+
+  .tech-card--java {
+    --x: 50%;
+    --y: 27%;
+  }
+
+  .tech-card--react {
+    --x: 34%;
+    --y: 35%;
+  }
+
+  .tech-card--spring {
+    --x: 66%;
+    --y: 35%;
+  }
+
+  .tech-card--mysql {
+    --x: 24%;
+    --y: 48%;
+  }
+
+  .tech-card--python {
+    --x: 76%;
+    --y: 48%;
+  }
+
+  .tech-card--js {
+    --x: 20%;
+    --y: 63%;
+  }
+
+  .tech-card--api {
+    --x: 80%;
+    --y: 63%;
+  }
+
+  .tech-card--git {
+    --x: 27%;
+    --y: 78%;
+  }
+
+  .tech-card--postman {
+    --x: 73%;
+    --y: 78%;
+  }
+
+  /* Minimal bottom banner */
+  .dev-banner {
+    bottom: 3%;
+    padding: 9px 30px;
+
+    background: linear-gradient(90deg, #100705, #241009, #100705);
+
+    border: 1px solid rgba(255, 125, 55, 0.65);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .dev-banner span {
+    font-size: clamp(12px, 2.3vh, 18px);
+    letter-spacing: 0.22em;
+  }
+}
+/* =========================================================
+   SCENE 02 — CINEMATIC CORNER DETAILS
+   ========================================================= */
+
+.dev-corners {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .dev-corners {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    pointer-events: none;
+  }
+
+  .dev-corner {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 14px 18px;
+    font-family: "Oswald", sans-serif;
+  }
+
+  .dev-corner span {
+    color: #e87936;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    margin-bottom: 5px;
+  }
+
+  .dev-corner strong {
+    color: #e8d5c3;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+  }
+
+  .dev-corner small {
+    color: #907b6c;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Top left */
+  .dev-corner--tl {
+    top: 5%;
+    left: 3%;
+    border-top: 1px solid #75401f;
+    border-left: 1px solid #75401f;
+  }
+
+  /* Top right */
+  .dev-corner--tr {
+    top: 5%;
+    right: 3%;
+    text-align: right;
+    border-top: 1px solid #75401f;
+    border-right: 1px solid #75401f;
+  }
+
+  /* Bottom left */
+  .dev-corner--bl {
+    bottom: 5%;
+    left: 3%;
+    border-bottom: 1px solid #75401f;
+    border-left: 1px solid #75401f;
+  }
+
+  /* Bottom right */
+  .dev-corner--br {
+    bottom: 5%;
+    right: 3%;
+    text-align: right;
+    border-bottom: 1px solid #75401f;
+    border-right: 1px solid #75401f;
+  }
+}
+/* SCENE 02 — PREMIUM MOBILE DEVELOPER TITLE */
+
+@media (max-width: 760px) {
+  .universe .dev-banner {
+    width: 90%;
+    bottom: 2%;
+    padding: 8px 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .universe .dev-banner span {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: #f0d9c3;
+    text-shadow: none;
+  }
+
+  .universe .dev-banner::before,
+  .universe .dev-banner::after {
+    content: "";
+    display: block;
+    width: 45%;
+    height: 1px;
+    margin: 10px auto;
+
+    background: linear-gradient(90deg, transparent, #c46a32, transparent);
+  }
+}
+@media (max-width: 760px) {
+  .universe .dev-banner span {
+    font-size: 11px;
+    color: #e87936;
+    letter-spacing: 0.4em;
+  }
+
+  .universe .dev-banner strong {
+    display: block;
+    margin-top: 4px;
+    font-family: "Bodoni Moda", Georgia, serif;
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #f0d9c3;
+  }
+}
+/* Final mobile title spacing */
+
+@media (max-width: 760px) {
+  .universe .dev-banner {
+    bottom: 1%;
+    padding: 4px 0;
+  }
+
+  .universe .dev-banner span {
+    font-size: 11px;
+    letter-spacing: 0.45em;
+  }
+
+  .universe .dev-banner strong {
+    font-size: 30px;
     letter-spacing: 0.12em;
   }
 
-  /* ---------- Two-column layout ---------- */
+  .universe .dev-banner::before,
+  .universe .dev-banner::after {
+    margin: 6px auto;
+  }
+}
+/* =========================================================
+   SCENE 02 — PREMIUM DESKTOP DEVELOPER TITLE
+   ========================================================= */
 
-  .tech-card--java,
+@media (min-width: 761px) {
+  .universe .dev-banner {
+    bottom: 1.5%;
+    width: min(40vw, 450px);
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    text-align: center;
+  }
+
+  .universe .dev-banner span {
+    display: block;
+    font-family: "Oswald", sans-serif;
+    font-size: clamp(10px, 1.7vh, 14px);
+    font-weight: 500;
+    letter-spacing: 0.45em;
+    color: #e87936;
+  }
+
+  .universe .dev-banner strong {
+    display: block;
+    margin-top: 3px;
+
+    font-family: "Bodoni Moda", Georgia, serif;
+    font-size: clamp(24px, 4.8vh, 42px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: 0.12em;
+
+    color: #f0d9c3;
+  }
+
+  .universe .dev-banner::after {
+    content: "";
+    display: block;
+    width: 45%;
+    height: 1px;
+    margin: 7px auto 0;
+
+    background: linear-gradient(90deg, transparent, #c46a32, transparent);
+  }
+}
+/* =========================================================
+   SCENE 02 — COMPACT MOBILE SCREEN OPTIMIZATION
+   ========================================================= */
+
+@media (max-width: 760px) and (max-height: 779px) {
+  /* Fit the entire scene within one screen */
+  .universe {
+    height: 100svh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Compact heading */
+  .universe .universe__title {
+    top: 2.5%;
+    padding-top: 0;
+  }
+
+  .universe__name {
+    font-size: clamp(21px, 6.5vw, 28px);
+    line-height: 1.02;
+  }
+
+  .universe__name span {
+    margin-top: 2px;
+  }
+
+  .universe__sub {
+    margin-top: 7px;
+    font-size: 7px;
+  }
+
+  /* Compact technology cards */
+  .universe .tech-card {
+    width: clamp(58px, 19vw, 76px);
+    height: clamp(44px, 8.5svh, 60px);
+    min-height: 0;
+    padding: 4px;
+    gap: 3px;
+    border-radius: 8px;
+  }
+
+  .universe .tech-card img {
+    width: 23px;
+    height: 23px;
+  }
+
+  .universe .tech-card strong {
+    font-size: 10px;
+  }
+
+  .universe .tech-api-icon {
+    font-size: 23px;
+  }
+
+  /* Balanced technology positions */
+  .tech-card--java {
+    --y: 23%;
+  }
+
   .tech-card--react,
-  .tech-card--js,
-  .tech-card--git {
-    left: 18px;
-    right: auto;
-  }
-
-  .tech-card--spring,
-  .tech-card--mysql,
-  .tech-card--api,
-  .tech-card--postman {
-    right: 18px;
-    left: auto;
-  }
-
-  .tech-card--java,
   .tech-card--spring {
-    top: 46%;
+    --y: 32%;
   }
 
-  .tech-card--react,
-  .tech-card--mysql {
-    top: 58%;
+  .tech-card--mysql,
+  .tech-card--python {
+    --y: 43%;
   }
 
   .tech-card--js,
   .tech-card--api {
-    top: 70%;
+    --y: 55%;
   }
 
   .tech-card--git,
   .tech-card--postman {
-    top: 82%;
+    --y: 67%;
   }
 
-  /* ---------- Mobile interaction ---------- */
-
-  .tech-card:hover {
-    scale: 1.03;
+  /* Portrait adjustment */
+  .universe .dev-portrait {
+    bottom: 12%;
+    width: 100%;
+    height: 48%;
   }
 
-  /* ---------- Background ---------- */
-
-  .dev-universe::before {
-    background-size: 45px 45px;
-    opacity: 0.35;
+  /* Compact orbital rings */
+  .dev-orbit--one {
+    top: 49%;
+    height: 52%;
   }
 
-  .dev-glow--one {
-    width: 200px;
-    height: 200px;
+  .dev-orbit--two {
+    top: 49%;
+    height: 58%;
   }
 
-  .dev-glow--two {
-    width: 220px;
-    height: 220px;
+  /* Bottom developer title */
+  .universe .dev-banner {
+    bottom: 1%;
+    padding: 0;
+  }
+
+  .universe .dev-banner span {
+    font-size: 9px;
+  }
+
+  .universe .dev-banner strong {
+    font-size: 24px;
+    line-height: 1.1;
+    margin-top: 3px;
+  }
+
+  .universe .dev-banner::before,
+  .universe .dev-banner::after {
+    margin: 4px auto;
+  }
+}
+/* =========================================================
+   SCENE 02 — TABLET CINEMATIC OPTIMIZATION
+   ========================================================= */
+
+@media (min-width: 761px) and (max-width: 1023px) and (orientation: portrait) {
+  /* Full-screen tablet composition */
+  .universe {
+    height: 100svh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Heading */
+  .universe .universe__title {
+    top: 4%;
+    width: 96%;
+  }
+
+  .universe__name {
+    font-size: clamp(38px, 6vw, 56px);
+  }
+
+  .universe__sub {
+    font-size: 11px;
+    margin-top: 12px;
+  }
+
+  /* Larger developer portrait */
+  .universe .dev-portrait {
+    bottom: 12%;
+    width: 76%;
+    height: 54%;
+  }
+
+  /* Larger technology cards */
+  .universe .tech-card {
+    width: clamp(110px, 15vw, 140px);
+    height: clamp(85px, 9vh, 105px);
+    min-height: 0;
+    padding: 8px;
+    gap: 7px;
+    border-radius: 12px;
+  }
+
+  .universe .tech-card img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .universe .tech-card strong {
+    font-size: 15px;
+  }
+
+  .universe .tech-api-icon {
+    font-size: 34px;
+  }
+
+  /* Symmetrical tablet card positions */
+  .tech-card--java {
+    --x: 50%;
+    --y: 26%;
+  }
+
+  .tech-card--react {
+    --x: 27%;
+    --y: 34%;
+  }
+
+  .tech-card--spring {
+    --x: 73%;
+    --y: 34%;
+  }
+
+  .tech-card--mysql {
+    --x: 14%;
+    --y: 46%;
+  }
+
+  .tech-card--python {
+    --x: 86%;
+    --y: 46%;
+  }
+
+  .tech-card--js {
+    --x: 14%;
+    --y: 59%;
+  }
+
+  .tech-card--api {
+    --x: 86%;
+    --y: 59%;
+  }
+
+  .tech-card--git {
+    --x: 14%;
+    --y: 72%;
+  }
+
+  .tech-card--postman {
+    --x: 86%;
+    --y: 72%;
+  }
+
+  /* Balanced orbital rings */
+  .dev-orbit--one {
+    top: 53%;
+    width: 82%;
+    height: 54%;
+  }
+
+  .dev-orbit--two {
+    top: 53%;
+    width: 94%;
+    height: 60%;
+  }
+
+  /* Premium developer title */
+  .universe .dev-banner {
+    bottom: 3%;
+    width: 85%;
+  }
+
+  .universe .dev-banner span {
+    font-size: 13px;
+    letter-spacing: 0.45em;
+  }
+
+  .universe .dev-banner strong {
+    font-size: 40px;
+  }
+
+  /* Keep desktop corner elements hidden */
+  .dev-corners {
+    display: none;
   }
 }
