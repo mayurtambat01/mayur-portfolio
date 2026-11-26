@@ -114,6 +114,19 @@
         ]
       }
     </script>
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta name="theme-color" content="#050303" />
+
+    <!-- iOS App Support -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Mayur Portfolio" />
+
+    <link rel="apple-touch-icon" href="/public/icons/icon-192.png" />
   </head>
   <body>
     <!-- the real heading, for search engines and screen readers; the visible
@@ -204,142 +217,144 @@
        needs and a veil that breathes over the loop seam. -->
 
       <section class="universe" id="universe" aria-labelledby="uniTitle">
-        <!-- Scene heading -->
-        <header class="universe__title" id="uniTitle">
-          <h2 class="universe__name">
-            The Developer
-            <span>Universe</span>
-          </h2>
+        <div class="universe__pin">
+          <!-- Scene heading -->
+          <header class="universe__title" id="uniTitle">
+            <h2 class="universe__name">
+              The Developer
+              <span>Universe</span>
+            </h2>
 
-          <p class="universe__sub">Code · Build · Learn · Create</p>
-        </header>
+            <p class="universe__sub">Code · Build · Learn · Create</p>
+          </header>
 
-        <div class="dev-universe">
-          <!-- Desktop cinematic corner details -->
-          <div class="dev-corners" hidden>
-            <!-- Top Left -->
-            <div class="dev-corner dev-corner--tl">
-              <span>TECH STACK</span>
-              <strong>DEVELOPMENT</strong>
-              <small>Code · Build · Innovate</small>
+          <div class="dev-universe">
+            <!-- Desktop cinematic corner details -->
+            <div class="dev-corners" hidden>
+              <!-- Top Left -->
+              <div class="dev-corner dev-corner--tl">
+                <span>TECH STACK</span>
+                <strong>DEVELOPMENT</strong>
+                <small>Code · Build · Innovate</small>
+              </div>
+
+              <!-- Top Right -->
+              <div class="dev-corner dev-corner--tr">
+                <span>DEVELOPER PROFILE</span>
+                <strong>FULL STACK</strong>
+                <small>Frontend · Backend</small>
+              </div>
+
+              <!-- Bottom Left -->
+              <div class="dev-corner dev-corner--bl">
+                <span>MY APPROACH</span>
+                <strong>DESIGN. DEVELOP.</strong>
+                <strong>DEPLOY.</strong>
+              </div>
+
+              <!-- Bottom Right -->
+              <div class="dev-corner dev-corner--br">
+                <span>MY MINDSET</span>
+                <strong>ALWAYS LEARNING.</strong>
+                <strong>ALWAYS BUILDING.</strong>
+              </div>
+            </div>
+            <!-- Cinematic environment -->
+            <div class="dev-stars" aria-hidden="true"></div>
+            <div class="dev-planet" aria-hidden="true"></div>
+            <div class="dev-orbit dev-orbit--one" aria-hidden="true"></div>
+            <div class="dev-orbit dev-orbit--two" aria-hidden="true"></div>
+            <div class="dev-floor" aria-hidden="true"></div>
+
+            <!-- Developer portrait -->
+            <div class="dev-portrait">
+              <img
+                src="public/fin/mayur-developer-cutout.webp"
+                alt="Mayur Tambat — Full Stack Developer"
+                width="1200"
+                height="1097"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
             </div>
 
-            <!-- Top Right -->
-            <div class="dev-corner dev-corner--tr">
-              <span>DEVELOPER PROFILE</span>
-              <strong>FULL STACK</strong>
-              <small>Frontend · Backend</small>
+            <!-- Technology cards -->
+
+            <div class="tech-card tech-card--java">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+                alt=""
+              />
+              <strong>Java</strong>
             </div>
 
-            <!-- Bottom Left -->
-            <div class="dev-corner dev-corner--bl">
-              <span>MY APPROACH</span>
-              <strong>DESIGN. DEVELOP.</strong>
-              <strong>DEPLOY.</strong>
+            <div class="tech-card tech-card--spring">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
+                alt=""
+              />
+              <strong>Spring Boot</strong>
             </div>
 
-            <!-- Bottom Right -->
-            <div class="dev-corner dev-corner--br">
-              <span>MY MINDSET</span>
-              <strong>ALWAYS LEARNING.</strong>
-              <strong>ALWAYS BUILDING.</strong>
+            <div class="tech-card tech-card--react">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+                alt=""
+              />
+              <strong>React.js</strong>
             </div>
-          </div>
-          <!-- Cinematic environment -->
-          <div class="dev-stars" aria-hidden="true"></div>
-          <div class="dev-planet" aria-hidden="true"></div>
-          <div class="dev-orbit dev-orbit--one" aria-hidden="true"></div>
-          <div class="dev-orbit dev-orbit--two" aria-hidden="true"></div>
-          <div class="dev-floor" aria-hidden="true"></div>
 
-          <!-- Developer portrait -->
-          <div class="dev-portrait">
-            <img
-              src="public/fin/mayur-developer-cutout.webp"
-              alt="Mayur Tambat — Full Stack Developer"
-              width="1200"
-              height="1097"
-              loading="lazy"
-              decoding="async"
-              draggable="false"
-            />
-          </div>
+            <div class="tech-card tech-card--mysql">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                alt=""
+              />
+              <strong>MySQL</strong>
+            </div>
 
-          <!-- Technology cards -->
+            <div class="tech-card tech-card--python">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                alt=""
+              />
+              <strong>Python</strong>
+            </div>
 
-          <div class="tech-card tech-card--java">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
-              alt=""
-            />
-            <strong>Java</strong>
-          </div>
+            <div class="tech-card tech-card--js">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                alt=""
+              />
+              <strong>JavaScript</strong>
+            </div>
 
-          <div class="tech-card tech-card--spring">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
-              alt=""
-            />
-            <strong>Spring Boot</strong>
-          </div>
+            <div class="tech-card tech-card--api">
+              <span class="tech-api-icon">&lt;/&gt;</span>
+              <strong>REST APIs</strong>
+            </div>
 
-          <div class="tech-card tech-card--react">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
-              alt=""
-            />
-            <strong>React.js</strong>
-          </div>
+            <div class="tech-card tech-card--git">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                alt=""
+              />
+              <strong>Git</strong>
+            </div>
 
-          <div class="tech-card tech-card--mysql">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-              alt=""
-            />
-            <strong>MySQL</strong>
-          </div>
+            <div class="tech-card tech-card--postman">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
+                alt=""
+              />
+              <strong>Postman</strong>
+            </div>
 
-          <div class="tech-card tech-card--python">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-              alt=""
-            />
-            <strong>Python</strong>
-          </div>
-
-          <div class="tech-card tech-card--js">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-              alt=""
-            />
-            <strong>JavaScript</strong>
-          </div>
-
-          <div class="tech-card tech-card--api">
-            <span class="tech-api-icon">&lt;/&gt;</span>
-            <strong>REST APIs</strong>
-          </div>
-
-          <div class="tech-card tech-card--git">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-              alt=""
-            />
-            <strong>Git</strong>
-          </div>
-
-          <div class="tech-card tech-card--postman">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
-              alt=""
-            />
-            <strong>Postman</strong>
-          </div>
-
-          <!-- Bottom cinematic banner -->
-          <div class="dev-banner">
-            <span>FULL STACK</span>
-            <strong>DEVELOPER</strong>
+            <!-- Bottom cinematic banner -->
+            <div class="dev-banner">
+              <span>FULL STACK</span>
+              <strong>DEVELOPER</strong>
+            </div>
           </div>
         </div>
       </section>

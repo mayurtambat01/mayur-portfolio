@@ -1,0 +1,25 @@
+{
+  "id": "/",
+  "name": "Mayur Tambat — Java Full Stack Developer",
+  "short_name": "Mayur Portfolio",
+  "description": "Cinematic Java Full Stack Developer Portfolio",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050303",
+  "theme_color": "#050303",
+  "icons": [
+    {
+      "src": "/public/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/public/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

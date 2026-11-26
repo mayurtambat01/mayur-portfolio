@@ -558,13 +558,10 @@
 
   /* Technology stack */
   .mayur-hero5__skills {
-    top: 13vh;
+    top: 10svh;
     right: 5vw;
-
     gap: 0.32rem;
-
     font-size: 7px;
-
     letter-spacing: 0.18em;
   }
 
