@@ -1,110 +1,128 @@
-import { createGL } from '../gl/renderer.js';
-import { Gallery } from './gallery.js';
-import { CARDS, PERSON, PORTRAIT, fitCover } from './layout4.js';
-import { sample4, cardIn, popEase, T4 } from './timeline4.js';
+import { createGL } from "../gl/renderer.js";
+import { Gallery } from "./gallery.js";
+import { CARDS, PERSON, PORTRAIT, fitCover } from "./layout4.js";
+import { sample4, cardIn, popEase, T4 } from "./timeline4.js";
 
 const damp = (v, to, k, dt) => v + (to - v) * (1 - Math.exp(-k * dt));
 
+// Original project image dimensions
+const PROJECT_IMAGE_DIMENSIONS = {
+  p01_timeless: [1487, 1058],
+  p02_game: [1582, 994],
+  p03_build: [1603, 981],
+  p04_driven: [1385, 1136],
+  p05_ideas: [1358, 1159],
+  p06_sound: [1159, 1356],
+  p07_food: [1275, 1234],
+  p10_play: [1520, 1035],
+  p11_cleaner: [1495, 1052],
+  p12_steps: [1477, 1065],
+};
+
 export async function initGallery() {
-  const section = document.getElementById('gallery');
-  const canvas = document.getElementById('galleryStage');
-  const deck = document.getElementById('galleryDeck');
-  const person = document.getElementById('galleryPerson');
+  const section = document.getElementById("gallery");
+  const canvas = document.getElementById("galleryStage");
+  const deck = document.getElementById("galleryDeck");
+  const person = document.getElementById("galleryPerson");
   if (!section || !canvas || !deck || !person) return null;
 
   const gl = createGL(canvas);
   if (!gl) {
-    section.classList.add('is-fallback', 'is-set');
+    section.classList.add("is-fallback", "is-set");
     return null;
   }
   const gallery = new Gallery(canvas, gl);
   await gallery.load();
 
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const labels = [...section.querySelectorAll('.g-label')];
-  const num = document.getElementById('galleryNum');
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const labels = [...section.querySelectorAll(".g-label")];
+  const num = document.getElementById("galleryNum");
 
   // ---- cards ---------------------------------------------------------------
   // far row surfaces first: entrance order is depth-sorted, back to front
-  const order = CARDS.map((c, i) => i)
-    .sort((a, b) => CARDS[b].depth - CARDS[a].depth);
+  const order = CARDS.map((c, i) => i).sort(
+    (a, b) => CARDS[b].depth - CARDS[a].depth,
+  );
   const rank = [];
-  order.forEach((ci, k) => { rank[ci] = k; });
+  order.forEach((ci, k) => {
+    rank[ci] = k;
+  });
 
   const cards = CARDS.map((c, i) => {
-    const el = document.createElement('button');
-    el.type = 'button';
-    el.className = 'g-card';
+    const el = document.createElement("button");
+    el.type = "button";
+    el.className = "g-card";
     el.dataset.i = String(i);
-    el.setAttribute('aria-label', `Project — ${c.title}`);
-    el.style.setProperty('--tint',
-      `rgba(${c.tint.map((v, k) => k < 3 ? Math.round(v * 255) : v)}, 0.5)`);
+    el.setAttribute("aria-label", `Project — ${c.title}`);
+    el.style.setProperty(
+      "--tint",
+      `rgba(${c.tint.map((v, k) => (k < 3 ? Math.round(v * 255) : v))}, 0.5)`,
+    );
     el.style.zIndex = String(10 + Math.round((1 - c.depth) * 20));
-    el.style.setProperty('--i', String(i));   // float dephasing
-    el.innerHTML = `<span class="g-card__in">`
-      + `<img src="public/projects/${c.id}.webp" alt="" `
-      + `draggable="false" loading="lazy" decoding="async"></span>`;
+    el.style.setProperty("--i", String(i)); // float dephasing
+    const dimensions = PROJECT_IMAGE_DIMENSIONS[c.id];
+
+    const sizeAttributes = dimensions
+      ? `width="${dimensions[0]}" height="${dimensions[1]}"`
+      : "";
+
+    el.innerHTML =
+      `<span class="g-card__in">` +
+      `<img src="public/projects/${c.id}.webp" alt="" ` +
+      `${sizeAttributes} ` +
+      `draggable="false" loading="lazy" decoding="async"></span>`;
 
     // StayNest card
-    if (c.id === 'p01_timeless') {
+    if (c.id === "p01_timeless") {
       el.setAttribute(
-        'aria-label',
-        'Open StayNest Room Rental Management System'
+        "aria-label",
+        "Open StayNest Room Rental Management System",
       );
 
-      el.addEventListener('click', () => {
+      el.addEventListener("click", () => {
         window.open(
-          'https://stay-nest-gold.vercel.app',
-          '_blank',
-          'noopener,noreferrer'
+          "https://stay-nest-gold.vercel.app",
+          "_blank",
+          "noopener,noreferrer",
         );
       });
     }
 
     // StayNest Owner Dashboard card
-    if (c.id === 'p03_build') {
-      el.setAttribute(
-        'aria-label',
-        'Open StayNest Property Management System'
-      );
+    if (c.id === "p03_build") {
+      el.setAttribute("aria-label", "Open StayNest Property Management System");
 
-      el.addEventListener('click', () => {
+      el.addEventListener("click", () => {
         window.open(
-          'https://stay-nest-gold.vercel.app',
-          '_blank',
-          'noopener,noreferrer'
+          "https://stay-nest-gold.vercel.app",
+          "_blank",
+          "noopener,noreferrer",
         );
       });
     }
 
     // Java Full Stack Developer card
-    if (c.id === 'p04_driven') {
-      el.setAttribute(
-        'aria-label',
-        'Open Mayur Tambat GitHub Profile'
-      );
+    if (c.id === "p04_driven") {
+      el.setAttribute("aria-label", "Open Mayur Tambat GitHub Profile");
 
-      el.addEventListener('click', () => {
+      el.addEventListener("click", () => {
         window.open(
-          'https://github.com/mayurtambat01',
-          '_blank',
-          'noopener,noreferrer'
+          "https://github.com/mayurtambat01",
+          "_blank",
+          "noopener,noreferrer",
         );
       });
     }
 
     // Bulk Email Automation API card
-    if (c.id === 'p02_game') {
-      el.setAttribute(
-        'aria-label',
-        'Open Bulk Email Automation API on GitHub'
-      );
+    if (c.id === "p02_game") {
+      el.setAttribute("aria-label", "Open Bulk Email Automation API on GitHub");
 
-      el.addEventListener('click', () => {
+      el.addEventListener("click", () => {
         window.open(
-          'https://github.com/mayurtambat01/spring-boot-bulk-email-api',
-          '_blank',
-          'noopener,noreferrer'
+          "https://github.com/mayurtambat01/spring-boot-bulk-email-api",
+          "_blank",
+          "noopener,noreferrer",
         );
       });
     }
@@ -112,7 +130,7 @@ export async function initGallery() {
     deck.appendChild(el);
     return el;
   });
-  person.style.zIndex = '34';
+  person.style.zIndex = "34";
 
   // ---- placement -----------------------------------------------------------
   let portrait = false;
@@ -122,21 +140,24 @@ export async function initGallery() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const f = gallery.resize(w, h, dpr);
     portrait = w / h < 0.75;
-    section.classList.toggle('is-portrait', portrait);
+    section.classList.toggle("is-portrait", portrait);
 
     for (let i = 0; i < cards.length; i++) {
       const c = CARDS[i];
       const el = cards[i];
       if (portrait) {
         const p = PORTRAIT.get(i);
-        if (!p) { el.style.display = 'none'; continue; }
-        el.style.display = '';
+        if (!p) {
+          el.style.display = "none";
+          continue;
+        }
+        el.style.display = "";
         const cw = p.w * w;
         el.style.width = `${cw}px`;
         el.style.left = `${p.cx * w - cw / 2}px`;
-        el.style.top = `${p.cy * h - (cw * c.box[3] / c.box[2]) / 2}px`;
+        el.style.top = `${p.cy * h - (cw * c.box[3]) / c.box[2] / 2}px`;
       } else {
-        el.style.display = '';
+        el.style.display = "";
 
         const cw = c.box[2] * f.s;
         const ch = c.box[3] * f.s;
@@ -165,33 +186,46 @@ export async function initGallery() {
   }
   place();
   let resizeId;
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     clearTimeout(resizeId);
     resizeId = setTimeout(place, 140);
   });
 
   // ---- pointer -------------------------------------------------------------
   const ptr = { tx: 0, ty: 0, x: 0, y: 0, inside: false };
-  section.addEventListener('pointermove', (e) => {
-    const r = section.getBoundingClientRect();
-    ptr.tx = ((e.clientX - r.left) / r.width) * 2 - 1;
-    ptr.ty = ((e.clientY - r.top) / r.height) * 2 - 1;
-    ptr.inside = true;
-  }, { passive: true });
-  section.addEventListener('pointerleave', () => { ptr.inside = false; });
+  section.addEventListener(
+    "pointermove",
+    (e) => {
+      const r = section.getBoundingClientRect();
+      ptr.tx = ((e.clientX - r.left) / r.width) * 2 - 1;
+      ptr.ty = ((e.clientY - r.top) / r.height) * 2 - 1;
+      ptr.inside = true;
+    },
+    { passive: true },
+  );
+  section.addEventListener("pointerleave", () => {
+    ptr.inside = false;
+  });
 
   // hover: the deck learns something is hot so siblings can ease back
-  deck.addEventListener('pointerover', (e) => {
-    if (e.target.closest('.g-card')) deck.classList.add('is-hot');
+  deck.addEventListener("pointerover", (e) => {
+    if (e.target.closest(".g-card")) deck.classList.add("is-hot");
   });
-  deck.addEventListener('pointerout', (e) => {
-    if (!e.relatedTarget || !e.relatedTarget.closest('.g-card')) {
-      deck.classList.remove('is-hot');
+  deck.addEventListener("pointerout", (e) => {
+    if (!e.relatedTarget || !e.relatedTarget.closest(".g-card")) {
+      deck.classList.remove("is-hot");
     }
   });
 
   // ---- the clock -----------------------------------------------------------
-  const state = { started: 0, running: false, visible: false, raf: 0, last: 0, set: false };
+  const state = {
+    started: 0,
+    running: false,
+    visible: false,
+    raf: 0,
+    last: 0,
+    set: false,
+  };
 
   const frame = (now) => {
     if (!state.running) return;
@@ -215,9 +249,9 @@ export async function initGallery() {
     // the deck yaws with the pointer - the "looking around the room" degree
     const live = s.live ? 1 : 0;
     deck.style.transform =
-      `rotateY(${(ptr.x * 2.1 * live).toFixed(3)}deg) `
-      + `rotateX(${(-ptr.y * 1.4 * live).toFixed(3)}deg) `
-      + `scale(${(1 + sp * 0.045).toFixed(4)})`;
+      `rotateY(${(ptr.x * 2.1 * live).toFixed(3)}deg) ` +
+      `rotateX(${(-ptr.y * 1.4 * live).toFixed(3)}deg) ` +
+      `scale(${(1 + sp * 0.045).toFixed(4)})`;
 
     for (let i = 0; i < cards.length; i++) {
       if (portrait && !PORTRAIT.get(i)) continue;
@@ -229,10 +263,10 @@ export async function initGallery() {
       const tx = ptr.x * str;
       const ty = ptr.y * str * 0.55;
       el.style.transform =
-        `translate3d(${tx.toFixed(2)}px, ${(ty + rise).toFixed(2)}px, 0) `
-        + `rotateX(${((1 - e) * -24).toFixed(2)}deg) `
-        + `rotateZ(${((1 - e) * (i % 2 ? 3.5 : -3.5)).toFixed(2)}deg) `
-        + `scale(${(0.84 + e * 0.16).toFixed(4)})`;
+        `translate3d(${tx.toFixed(2)}px, ${(ty + rise).toFixed(2)}px, 0) ` +
+        `rotateX(${((1 - e) * -24).toFixed(2)}deg) ` +
+        `rotateZ(${((1 - e) * (i % 2 ? 3.5 : -3.5)).toFixed(2)}deg) ` +
+        `scale(${(0.84 + e * 0.16).toFixed(4)})`;
       const op = Math.min(1, Math.max(0, e * 2.4));
       el.style.opacity = op.toFixed(3);
       // blur -> sharp is part of the pop; cleared once settled so hover and
@@ -240,23 +274,23 @@ export async function initGallery() {
       if (e < 0.995) {
         el.style.filter = `blur(${((1 - Math.min(1, e)) * 7).toFixed(2)}px)`;
       } else if (el.style.filter) {
-        el.style.filter = '';
+        el.style.filter = "";
       }
     }
 
     // the figure: rises into the light after his gallery is mostly up
     const pe = s.person;
     person.style.transform =
-      `translate3d(${(ptr.x * -9 * live).toFixed(2)}px, `
-      + `${(ptr.y * -5 * live + (1 - pe) * 34).toFixed(2)}px, 0) `
-      + `scale(${(0.985 + pe * 0.015 + sp * 0.03).toFixed(4)})`;
+      `translate3d(${(ptr.x * -9 * live).toFixed(2)}px, ` +
+      `${(ptr.y * -5 * live + (1 - pe) * 34).toFixed(2)}px, 0) ` +
+      `scale(${(0.985 + pe * 0.015 + sp * 0.03).toFixed(4)})`;
     person.style.opacity = pe.toFixed(3);
 
     if (s.labels > 0 && !state.set) {
       state.set = true;
-      section.classList.add('is-labels');
+      section.classList.add("is-labels");
     }
-    if (s.live) section.classList.add('is-live');
+    if (s.live) section.classList.add("is-live");
 
     state.raf = requestAnimationFrame(frame);
   };
@@ -268,28 +302,38 @@ export async function initGallery() {
     if (!state.started) state.started = performance.now();
     state.raf = requestAnimationFrame(frame);
   };
-  const stop = () => { state.running = false; cancelAnimationFrame(state.raf); };
+  const stop = () => {
+    state.running = false;
+    cancelAnimationFrame(state.raf);
+  };
 
-  new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      state.visible = e.isIntersecting;
-      if (e.isIntersecting) start(); else stop();
-    }
-  }, { threshold: 0.22 }).observe(section);
+  new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        state.visible = e.isIntersecting;
+        if (e.isIntersecting) start();
+        else stop();
+      }
+    },
+    { threshold: 0.22 },
+  ).observe(section);
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') stop();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") stop();
     else if (state.visible) start();
   });
 
-  labels.forEach((el, i) => el.style.setProperty('--li', String(i)));
+  labels.forEach((el, i) => el.style.setProperty("--li", String(i)));
 
   // review hook: canvas only (the cards are DOM; screenshot the pane for those)
-  window.__shot4 = async (name = 'gallery', at = null) => {
+  window.__shot4 = async (name = "gallery", at = null) => {
     const t = at !== null ? at : (performance.now() - state.started) / 1000;
     gallery.render(t, sample4(t));
-    const url = canvas.toDataURL('image/png');
-    await fetch(`/__shot?name=${encodeURIComponent(name)}`, { method: 'POST', body: url });
+    const url = canvas.toDataURL("image/png");
+    await fetch(`/__shot?name=${encodeURIComponent(name)}`, {
+      method: "POST",
+      body: url,
+    });
     return `${canvas.width}x${canvas.height} @ t=${t.toFixed(2)}`;
   };
   window.__gallery = { gallery, state, section };

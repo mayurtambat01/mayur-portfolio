@@ -1,219 +1,278 @@
-// Scene three's lifecycle: build the cards, place them from the fitted
-// geometry, map the pointer onto the timeline, and run only while on screen.
-//
-// The pointer mapping is the heart of this section. Cursor-x alone would be
-// wrong: the timeline descends across the frame, so the same x means different
-// years depending on how high the pointer is. Instead the cursor is projected
-// onto the polyline through the card centres, giving a continuous position
-// along the timeline that the clock hand reads directly.
+// =========================================================
+// SCENE 03 — MY DEVELOPER JOURNEY
+// Interactive Cinematic Timeline
+// =========================================================
 
-import { createGL } from '../gl/renderer.js';
-import { Chrono } from './chrono.js';
-import { YEARS, timeAt } from './layout3.js';
-import { T3 } from './timeline3.js';
+import { YEARS } from "./layout3.js";
 
 export async function initChrono() {
-  const section = document.getElementById('chrono');
-  const canvas = document.getElementById('chronoStage');
-  const deck = document.getElementById('chronoDeck');
-  if (!section || !canvas || !deck) return null;
+  const section = document.getElementById("chrono");
 
-  const gl = createGL(canvas);
-  if (!gl) {
-    section.classList.add('is-fallback');
+  if (!section) return null;
+
+  // -------------------------------------------------------
+  // DOM ELEMENTS
+  // -------------------------------------------------------
+
+  const timeline = document.getElementById("journeyTimeline");
+  const card = document.getElementById("journeyCard");
+  const image = document.getElementById("journeyImage");
+  const year = document.getElementById("journeyYear");
+  const chapter = document.getElementById("journeyChapter");
+  const title = document.getElementById("journeyTitle");
+  const description = document.getElementById("journeyDescription");
+  const skills = document.getElementById("journeySkills");
+  const prev = document.getElementById("journeyPrev");
+  const next = document.getElementById("journeyNext");
+  const counter = document.getElementById("journeyCounter");
+
+  if (
+    !timeline ||
+    !card ||
+    !image ||
+    !year ||
+    !chapter ||
+    !title ||
+    !description ||
+    !skills ||
+    !prev ||
+    !next ||
+    !counter
+  ) {
+    console.warn("[Journey] Required elements are missing.");
     return null;
   }
 
-  // The figure's layer: a second, transparent context on the canvas stacked
-  // over the card deck, so he stands in front of the timeline. Optional — if
-  // the browser refuses another context he simply draws behind, as before.
-  const frontCanvas = document.getElementById('chronoFront');
-  const glFront = frontCanvas ? createGL(frontCanvas, { alpha: true }) : null;
+  // Prevent duplicate initialization
+  if (section.dataset.initialized === "true") return null;
 
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // read LIVE, not captured at boot: a convertible flips this when it folds,
-  // and a page restored under touch emulation would otherwise stay locked out
-  const coarseMQ = matchMedia('(pointer: coarse)');
-  const chrono = new Chrono(canvas, gl,
-    glFront ? { canvas: frontCanvas, gl: glFront } : null);
-  await chrono.load();
+  section.dataset.initialized = "true";
 
-  function setTarget(u) {
-    chrono.targetU = Math.max(0, Math.min(YEARS.length - 1, u));
+  // -------------------------------------------------------
+  // CHAPTER DATA
+  // -------------------------------------------------------
+
+  const chapterDetails = {
+    2021: {
+      title: "Foundation",
+      description:
+        "Started my Computer Engineering journey and developed a strong interest in programming and problem solving.",
+      skills: ["Computer Engineering", "Programming", "Problem Solving"],
+    },
+
+    2022: {
+      title: "Programming",
+      description:
+        "Strengthened my Java fundamentals, explored object-oriented programming and improved my logical thinking.",
+      skills: ["Java", "OOP", "Problem Solving"],
+    },
+
+    2023: {
+      title: "Backend Development",
+      description:
+        "Explored backend development by learning Spring Boot, relational databases and REST API development.",
+      skills: ["Spring Boot", "MySQL", "REST APIs"],
+    },
+
+    2024: {
+      title: "Graduation",
+      description:
+        "Completed my B.Tech in Computer Engineering and continued developing my skills as a full stack developer.",
+      skills: ["B.Tech", "Computer Engineering", "Full Stack"],
+    },
+
+    2025: {
+      title: "Full Stack Development",
+      description:
+        "Combined React.js, Spring Boot and MySQL to build complete full stack web applications.",
+      skills: ["React.js", "Spring Boot", "MySQL"],
+    },
+
+    2026: {
+      title: "From Code to Creation",
+      description:
+        "Transforming ideas into real-world applications through projects like StayNest and Cineverse, combining technical expertise with creativity and continuous learning.",
+      skills: [
+        "Java",
+        "Python",
+        "MySQL",
+        "Spring Boot",
+        "React.js",
+        "REST APIs",
+      ],
+    },
+  };
+
+  const chapters = YEARS.map((item) => ({
+    ...item,
+    ...chapterDetails[item.year],
+  }));
+
+  let activeIndex = 0;
+
+  const total = chapters.length;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const formatNumber = (number) => String(number).padStart(2, "0");
+
+  // -------------------------------------------------------
+  // BUILD INTERACTIVE TIMELINE
+  // -------------------------------------------------------
+
+  timeline.replaceChildren();
+
+  const nodes = chapters.map((item, index) => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "journey-node";
+
+    button.setAttribute("aria-label", `Show ${item.year} — ${item.title}`);
+
+    button.setAttribute("aria-pressed", "false");
+
+    button.innerHTML = `
+      <span class="journey-node__dot" aria-hidden="true"></span>
+
+      <span class="journey-node__info">
+        <span class="journey-node__year">
+          ${item.year}
+        </span>
+
+        <span class="journey-node__label">
+          ${item.year === 2022 ? "Programming" : item.key}
+        </span>
+      </span>
+    `;
+
+    button.addEventListener("click", () => {
+      showChapter(index);
+    });
+
+    timeline.appendChild(button);
+
+    return button;
+  });
+
+  // -------------------------------------------------------
+  // UPDATE ACTIVE CHAPTER
+  // -------------------------------------------------------
+
+  function showChapter(index, animate = true) {
+    if (index < 0 || index >= total) return;
+
+    activeIndex = index;
+
+    const item = chapters[activeIndex];
+
+    // Update image dimensions
+    image.width = item.year === 2026 ? 1692 : 1431;
+    image.height = item.year === 2026 ? 929 : 1099;
+
+    // Update chapter image
+    image.src = `public/years/${item.year}.webp`;
+    image.alt = `${item.year} — ${item.title}`;
+
+    // Update chapter information
+    year.textContent = item.year;
+
+    chapter.textContent = `CHAPTER ${formatNumber(activeIndex + 1)} / ${formatNumber(total)}`;
+
+    title.textContent = item.title;
+    description.textContent = item.description;
+
+    counter.textContent = `${formatNumber(activeIndex + 1)} / ${formatNumber(total)}`;
+
+    // Update technology badges
+    skills.replaceChildren();
+
+    item.skills.forEach((skill) => {
+      const badge = document.createElement("span");
+
+      badge.className = "journey-skill";
+      badge.textContent = skill;
+
+      skills.appendChild(badge);
+    });
+
+    // Highlight active timeline year
+    nodes.forEach((node, i) => {
+      const isActive = i === activeIndex;
+
+      node.classList.toggle("is-active", isActive);
+
+      node.setAttribute("aria-pressed", String(isActive));
+    });
+
+    // Update navigation buttons
+    prev.disabled = activeIndex === 0;
+    next.disabled = activeIndex === total - 1;
+
+    section.dataset.year = String(item.year);
+
+    // Smooth chapter transition
+    card.classList.remove("is-changing");
+
+    if (animate && !reducedMotion.matches) {
+      void card.offsetWidth;
+
+      card.classList.add("is-changing");
+    }
   }
 
-  // ---- cards -------------------------------------------------------------
-  const cards = YEARS.map((y, i) => {
-    const el = document.createElement('button');
-    el.type = 'button';
-    el.className = 'yr';
-    el.dataset.i = String(i);
-    el.setAttribute('aria-label', `${y.year} — ${y.key}`);
-    el.innerHTML =
-      `<span class="yr__frame">`
-      + `<img class="yr__img" src="public/years/${y.year}.webp" alt="" `
-      + `loading="lazy" decoding="async">`
-      + `<span class="yr__body">`
-      + `<span class="yr__year">${y.year}</span>`
-      + `<span class="yr__key">${y.key}</span>`
-      + `<span class="yr__lines">${y.lines.map((l) => `<i>${l}</i>`).join('')}</span>`
-      + `</span>`
-      + `<svg class="yr__go" viewBox="0 0 16 16" aria-hidden="true">`
-      + `<path d="M4 12 L12 4 M6 4 H12 V10" fill="none" stroke="currentColor" `
-      + `stroke-width="1.4"/></svg>`
-      + `</span>`;
-    deck.appendChild(el);
-    return el;
+  // -------------------------------------------------------
+  // PREVIOUS AND NEXT BUTTONS
+  // -------------------------------------------------------
+
+  prev.addEventListener("click", () => {
+    showChapter(activeIndex - 1);
   });
 
-  // The year numerals are the tap targets on a phone, where only one card is
-  // on stage at a time — so they are real buttons rather than decorative text.
-  const labels = YEARS.map((y, i) => {
-    const el = document.createElement('button');
-    el.type = 'button';
-    el.className = 'yr-tag';
-    el.textContent = String(y.year);
-    el.tabIndex = -1;                 // the cards already carry the tab order
-    el.setAttribute('aria-label', `Show ${y.year}`);
-    el.addEventListener('click', () => setTarget(i));
-    el.addEventListener('pointerenter', () => { if (!coarseMQ.matches) setTarget(i); });
-    deck.appendChild(el);
-    return el;
+  next.addEventListener("click", () => {
+    showChapter(activeIndex + 1);
   });
 
-  const state = { started: 0, running: false, visible: false, raf: 0, last: 0 };
+  // -------------------------------------------------------
+  // KEYBOARD NAVIGATION
+  // -------------------------------------------------------
 
-  // ---- placement ---------------------------------------------------------
-  function place() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const L = chrono.resize(window.innerWidth, window.innerHeight, dpr);
-    const portrait = L.portrait;
+  section.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
 
-    for (let i = 0; i < cards.length; i++) {
-      const c = L.cards[i];
-      const el = cards[i];
-      // The reference's cards are ~8-12% of frame width — faithful, but at
-      // that size the body copy is unreadable on a real screen (it needed a 3x
-      // zoom to read in the poster itself). They are scaled up just enough to
-      // be legible while keeping the measured progression and spacing, so the
-      // composition still reads as the reference.
-      const w = portrait ? c.w : c.w * 1.62;
-      el.style.width = `${w}px`;
-      el.style.left = `${c.x}px`;
-      el.style.top = `${c.y}px`;
-      // cards lean with the rail; the tangent at 2021 is steep and at 2026
-      // almost flat, which is exactly the lean the reference has
-      const tilt = portrait ? 0 : (L.angles[i] - L.angles[L.angles.length - 1]) * 14;
-      el.style.setProperty('--tilt', `${tilt.toFixed(2)}deg`);
-      el.style.setProperty('--depth', String(i));
-
-      const n = L.nodes[i];
-      labels[i].style.left = `${n[0]}px`;
-      labels[i].style.top = `${n[1]}px`;
-      labels[i].style.fontSize = portrait
-        ? '28px'
-        : `${Math.max(19, c.w * 0.30)}px`;
+      showChapter(activeIndex - 1);
     }
-    section.classList.toggle('is-portrait', portrait);
-  }
-  place();
 
-  let resizeId;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeId);
-    resizeId = setTimeout(place, 140);
-  });
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
 
-  // ---- pointer -> time ---------------------------------------------------
-  section.addEventListener('pointermove', (e) => {
-    if (coarseMQ.matches) return;
-    const r = canvas.getBoundingClientRect();
-    const px = e.clientX - r.left;
-    const py = e.clientY - r.top;
-    chrono.pointer.tx = (px / r.width) * 2 - 1;
-    chrono.pointer.ty = (py / r.height) * 2 - 1;
-    chrono.pointer.inside = true;
-    const { u, dist } = timeAt(chrono.layout, px, py);
-    // far from the rail the visitor is not aiming at anything; hold the last
-    // year rather than swinging the hand at stray movement
-    if (dist < r.height * 0.55) setTarget(u);
-  }, { passive: true });
-
-  section.addEventListener('pointerleave', () => { chrono.pointer.inside = false; });
-
-  // touch and keyboard: a card is a real button, so both come almost free
-  cards.forEach((el, i) => {
-    el.addEventListener('pointerenter', () => { if (!coarseMQ.matches) setTarget(i); });
-    el.addEventListener('click', () => setTarget(i));
-    el.addEventListener('focus', () => setTarget(i));
-  });
-
-  // ---- frame -------------------------------------------------------------
-  let lastActive = -1;
-  const frame = (now) => {
-    if (!state.running) return;
-    const dt = Math.min(0.05, (now - state.last) / 1000 || 0.016);
-    state.last = now;
-    const t = reduced ? T3.live + 2 : (now - state.started) / 1000;
-    const s = chrono.render(t, dt);
-
-    if (s) {
-      if (s.live) section.classList.add('is-live');
-      for (let i = 0; i < cards.length; i++) {
-        const near = 1 - Math.min(1, Math.abs(i - chrono.u));
-        cards[i].style.setProperty('--in', s.cards[i].toFixed(3));
-        cards[i].style.setProperty('--near', near.toFixed(3));
-        labels[i].style.setProperty('--in', s.nodes[i].toFixed(3));
-        labels[i].style.setProperty('--near', near.toFixed(3));
-      }
-      if (chrono.active !== lastActive) {
-        lastActive = chrono.active;
-        cards.forEach((el, i) => el.classList.toggle('is-active', i === chrono.active));
-        labels.forEach((el, i) => el.classList.toggle('is-active', i === chrono.active));
-        section.dataset.year = String(YEARS[chrono.active].year);
-      }
+      showChapter(activeIndex + 1);
     }
-    state.raf = requestAnimationFrame(frame);
-  };
-
-  const start = () => {
-    if (state.running) return;
-    state.running = true;
-    state.last = performance.now();
-    if (!state.started) state.started = performance.now();
-    state.raf = requestAnimationFrame(frame);
-  };
-  const stop = () => { state.running = false; cancelAnimationFrame(state.raf); };
-
-  new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      state.visible = e.isIntersecting;
-      if (e.isIntersecting) start(); else stop();
-    }
-  }, { threshold: 0.22 }).observe(section);
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') stop();
-    else if (state.visible) start();
   });
 
-  // review hook, same contract as the other two scenes
-  window.__shot3 = async (name = 'chrono', at = null) => {
-    const t = at !== null ? at : (performance.now() - state.started) / 1000;
-    chrono.render(t, 0.016);
-    // flatten both layers, back canvas then front, exactly as stacked
-    const flat = document.createElement('canvas');
-    flat.width = canvas.width;
-    flat.height = canvas.height;
-    const c2 = flat.getContext('2d');
-    c2.drawImage(canvas, 0, 0);
-    if (chrono.front) c2.drawImage(chrono.front.canvas, 0, 0);
-    const url = flat.toDataURL('image/png');
-    await fetch(`/__shot?name=${encodeURIComponent(name)}`,
-      { method: 'POST', body: url });
-    return `${canvas.width}x${canvas.height} @ t=${t.toFixed(2)}`;
-  };
-  window.__chrono = chrono;
+  // -------------------------------------------------------
+  // REMOVE COMPLETED ANIMATION CLASS
+  // -------------------------------------------------------
 
-  return { chrono, section, setTarget };
+  card.addEventListener("animationend", (event) => {
+    if (event.animationName === "journeyReveal") {
+      card.classList.remove("is-changing");
+    }
+  });
+
+  // -------------------------------------------------------
+  // INITIALIZE FIRST CHAPTER
+  // -------------------------------------------------------
+
+  showChapter(chapters.length - 1, false);
+
+  section.classList.add("is-live");
+
+  console.log("[Journey] Scene 3 initialized successfully.");
+
+  return {
+    section,
+    setTarget: showChapter,
+  };
 }

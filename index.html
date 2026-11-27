@@ -359,36 +359,121 @@
         </div>
       </section>
 
-      <!-- ==================================================================== -->
+      <!-- =====================================================
+     SCENE 03 — MY DEVELOPER JOURNEY
+====================================================== -->
+
       <section class="chrono" id="chrono" aria-labelledby="chronoTitle">
         <div class="chrono__pin">
-          <canvas id="chronoStage" aria-hidden="true"></canvas>
+          <!-- Cinematic background -->
+          <div class="journey-background" aria-hidden="true"></div>
+          <div class="journey-grid" aria-hidden="true"></div>
+          <div class="journey-glow" aria-hidden="true"></div>
 
-          <h2 class="chrono__title" id="chronoTitle">
-            <span>My</span><span>Developer</span><span>Journey</span>
-          </h2>
-          <p class="chrono__rail" aria-hidden="true">
-            <i></i>
-            <span>Java</span><span>Full Stack</span><span>Projects</span>
-            <span>Learning</span><span>Growth</span>
-            <i></i>
-          </p>
+          <!-- Scene heading -->
+          <header class="journey-header">
+            <span class="journey-eyebrow">THE STORY SO FAR</span>
 
-          <p class="chrono__hint" aria-hidden="true">
-            Explore<br />my developer<br />journey<i></i>
-          </p>
-          <p class="chrono__note chrono__note--bl" aria-hidden="true">
-            Always<br />learning<br />always<br />building
-          </p>
-          <p class="chrono__note chrono__note--br" aria-hidden="true">
-            Ready<br />to build<br />what's<br />next<i></i>
-          </p>
+            <h2 class="journey-title" id="chronoTitle">
+              My Developer
+              <span>Journey</span>
+            </h2>
 
-          <div class="chrono__deck" id="chronoDeck"></div>
+            <p class="journey-subtitle">Learn · Evolve · Build · Repeat</p>
+          </header>
 
-          <!-- the figure's own layer, stacked over the deck: he stands in front
-           of the timeline, looking at his journey -->
-          <canvas id="chronoFront" aria-hidden="true"></canvas>
+          <!-- Interactive journey -->
+          <div class="journey-content">
+            <!-- Timeline navigation -->
+            <div
+              class="journey-timeline"
+              id="journeyTimeline"
+              role="group"
+              aria-label="Developer journey years"
+            ></div>
+
+            <!-- Active chapter -->
+            <article class="journey-card" id="journeyCard" aria-live="polite">
+              <div class="journey-card__visual">
+                <img
+                  id="journeyImage"
+                  src="public/years/2021.webp"
+                  alt="Foundation chapter"
+                  width="1431"
+                  height="1099"
+                  loading="lazy"
+                  decoding="async"
+                />
+
+                <div class="journey-card__overlay"></div>
+
+                <span class="journey-card__year" id="journeyYear"> 2021 </span>
+              </div>
+
+              <div class="journey-card__body">
+                <span class="journey-card__chapter" id="journeyChapter">
+                  CHAPTER 01 / 06
+                </span>
+
+                <h3 class="journey-card__title" id="journeyTitle">
+                  Foundation
+                </h3>
+
+                <p class="journey-card__description" id="journeyDescription">
+                  Computer Engineering · Programming Basics · Started Learning
+                </p>
+
+                <div class="journey-card__skills" id="journeySkills"></div>
+
+                <!-- Chapter navigation -->
+                <div class="journey-controls">
+                  <button
+                    type="button"
+                    id="journeyPrev"
+                    aria-label="Previous chapter"
+                    disabled
+                  >
+                    &#8592;
+                  </button>
+
+                  <span id="journeyCounter">01 / 06</span>
+
+                  <button
+                    type="button"
+                    id="journeyNext"
+                    aria-label="Next chapter"
+                  >
+                    &#8594;
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Journey statistics -->
+          <div class="journey-stats">
+            <div class="journey-stat">
+              <strong>06</strong>
+              <span>Chapters</span>
+            </div>
+
+            <div class="journey-stat">
+              <strong>2021–26</strong>
+              <span>The Journey</span>
+            </div>
+
+            <div class="journey-stat">
+              <strong>∞</strong>
+              <span>Learning</span>
+            </div>
+          </div>
+
+          <!-- Cinematic footer -->
+          <footer class="journey-footer">
+            <span></span>
+            <p>Always Learning. Always Building.</p>
+            <span></span>
+          </footer>
         </div>
       </section>
 
@@ -404,6 +489,8 @@
               id="galleryPerson"
               src="public/projects/person.png"
               alt=""
+              width="160"
+              height="335"
               draggable="false"
               loading="lazy"
               decoding="async"
@@ -465,6 +552,8 @@
           <img
             src="public/fin/scene5-connect.webp"
             alt=""
+            width="1672"
+            height="941"
             draggable="false"
             loading="lazy"
             decoding="async"

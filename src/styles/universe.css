@@ -1353,28 +1353,19 @@
 }
 
 /* =========================================================
-   SCENE 02 — MOBILE STICKY VIEWPORT
+   SCENE 02 — RESPONSIVE STICKY VIEWPORT
    ========================================================= */
 
-.universe__pin {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+.universe {
+  height: 150svh;
+  min-height: 0;
+  overflow: visible;
 }
 
-@media (max-width: 760px) {
-  .universe {
-    height: 150svh;
-    min-height: 0;
-    overflow: visible;
-  }
-
-  .universe__pin {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: 100svh;
-    overflow: hidden;
-  }
+.universe__pin {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
 }
