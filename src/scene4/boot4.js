@@ -1,342 +1,388 @@
-import { createGL } from "../gl/renderer.js";
-import { Gallery } from "./gallery.js";
-import { CARDS, PERSON, PORTRAIT, fitCover } from "./layout4.js";
-import { sample4, cardIn, popEase, T4 } from "./timeline4.js";
+/* =========================================================
+   SCENE 04 — PREMIUM CINEMATIC PROJECT SHOWCASE
+   ========================================================= */
 
-const damp = (v, to, k, dt) => v + (to - v) * (1 - Math.exp(-k * dt));
+const PROJECTS = [
+  {
+    id: "staynest",
+    name: "StayNest",
+    title: "Stay<span>Nest</span>",
+    subtitle: "Room Rental Management System",
 
-// Original project image dimensions
+    description:
+      "A full-stack property management application designed to manage rooms, customers, rent, electricity bills and payments through a secure and centralized dashboard.",
+
+    image: "public/projects/featured/staynest.webp",
+
+    technologies: [
+      "Java",
+      "Spring Boot",
+      "React.js",
+      "MySQL",
+      "REST APIs",
+      "JWT",
+    ],
+
+    live: "https://stay-nest-gold.vercel.app/",
+    github: "",
+
+    accent: "#ff792e",
+    accentRGB: "255, 121, 46",
+  },
+
+  {
+    id: "cineverse",
+    name: "Cineverse",
+    title: "Cine<span>verse</span>",
+    subtitle: "Cinematic Movie Booking Experience",
+
+    description:
+      "A modern movie booking experience featuring cinematic animations, interactive movie exploration, responsive interfaces and smooth scrolling.",
+
+    image: "public/projects/featured/cineverse.webp",
+
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "React.js",
+      "Tailwind CSS",
+      "GSAP",
+      "Lenis",
+    ],
+
+    live: "https://cineverse-mayur.vercel.app/",
+    github: "",
+
+    accent: "#ff343f",
+    accentRGB: "255, 52, 63",
+  },
+
+  {
+    id: "bulk-email",
+    name: "Bulk Email API",
+    title: "Bulk Email <span>API</span>",
+    subtitle: "Automated Email Delivery System",
+
+    description:
+      "A Spring Boot REST API that automates personalized bulk email delivery using Excel recipient data, Gmail SMTP integration and PDF attachments.",
+
+    image: "public/projects/featured/bulk-email.webp",
+
+    technologies: [
+      "Java",
+      "Spring Boot",
+      "Apache POI",
+      "SMTP",
+      "REST APIs",
+      "Postman",
+    ],
+
+    live: "",
+    github: "https://github.com/mayurtambat01/spring-boot-bulk-email-api",
+
+    accent: "#ffad42",
+    accentRGB: "255, 173, 66",
+  },
+
+  {
+    id: "restaurant",
+    name: "Restaurant Booking",
+    title: "Restaurant <span>Booking</span>",
+    subtitle: "Online Table Reservation System",
+
+    description:
+      "An earlier web development project focused on online restaurant table reservations using PHP and MySQL. The displayed interface is a conceptual preview.",
+
+    image: "public/projects/featured/restaurant.webp",
+
+    technologies: ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Bootstrap"],
+
+    live: "restaurant-deployment.html",
+    github: "",
+
+    accent: "#e9a04b",
+    accentRGB: "233, 160, 75",
+  },
+];
+
 const PROJECT_IMAGE_DIMENSIONS = {
-  p01_timeless: [1487, 1058],
-  p02_game: [1582, 994],
-  p03_build: [1603, 981],
-  p04_driven: [1385, 1136],
-  p05_ideas: [1358, 1159],
-  p06_sound: [1159, 1356],
-  p07_food: [1275, 1234],
-  p10_play: [1520, 1035],
-  p11_cleaner: [1495, 1052],
-  p12_steps: [1477, 1065],
+  staynest: [1672, 941],
+  cineverse: [1672, 941],
+  "bulk-email": [1672, 941],
+  restaurant: [1671, 941],
 };
+
+/* =========================================================
+   INITIALIZE PROJECT SHOWCASE
+   ========================================================= */
 
 export async function initGallery() {
   const section = document.getElementById("gallery");
-  const canvas = document.getElementById("galleryStage");
-  const deck = document.getElementById("galleryDeck");
-  const person = document.getElementById("galleryPerson");
-  if (!section || !canvas || !deck || !person) return null;
 
-  const gl = createGL(canvas);
-  if (!gl) {
-    section.classList.add("is-fallback", "is-set");
+  if (!section) return null;
+
+  const navigation = document.getElementById("projectsNavigation");
+
+  const card = document.getElementById("featuredProject");
+  const label = document.getElementById("projectLabel");
+  const title = document.getElementById("projectTitle");
+  const subtitle = document.getElementById("projectSubtitle");
+
+  const description = document.getElementById("projectDescription");
+
+  const technologies = document.getElementById("projectTechnologies");
+
+  const image = document.getElementById("projectImage");
+  const liveButton = document.getElementById("projectLive");
+  const githubButton = document.getElementById("projectGithub");
+
+  const prevButton = document.getElementById("projectPrev");
+  const nextButton = document.getElementById("projectNext");
+  const counter = document.getElementById("projectCounter");
+
+  const requiredElements = [
+    navigation,
+    card,
+    label,
+    title,
+    subtitle,
+    description,
+    technologies,
+    image,
+    liveButton,
+    githubButton,
+    prevButton,
+    nextButton,
+    counter,
+  ];
+
+  if (requiredElements.some((element) => !element)) {
+    console.warn("[Projects] Required elements missing.");
     return null;
   }
-  const gallery = new Gallery(canvas, gl);
-  await gallery.load();
 
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const labels = [...section.querySelectorAll(".g-label")];
-  const num = document.getElementById("galleryNum");
+  let currentIndex = 0;
+  let animationTimer;
 
-  // ---- cards ---------------------------------------------------------------
-  // far row surfaces first: entrance order is depth-sorted, back to front
-  const order = CARDS.map((c, i) => i).sort(
-    (a, b) => CARDS[b].depth - CARDS[a].depth,
-  );
-  const rank = [];
-  order.forEach((ci, k) => {
-    rank[ci] = k;
-  });
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  const cards = CARDS.map((c, i) => {
-    const el = document.createElement("button");
-    el.type = "button";
-    el.className = "g-card";
-    el.dataset.i = String(i);
-    el.setAttribute("aria-label", `Project — ${c.title}`);
-    el.style.setProperty(
-      "--tint",
-      `rgba(${c.tint.map((v, k) => (k < 3 ? Math.round(v * 255) : v))}, 0.5)`,
-    );
-    el.style.zIndex = String(10 + Math.round((1 - c.depth) * 20));
-    el.style.setProperty("--i", String(i)); // float dephasing
-    const dimensions = PROJECT_IMAGE_DIMENSIONS[c.id];
+  const formatNumber = (number) => String(number).padStart(2, "0");
 
-    const sizeAttributes = dimensions
-      ? `width="${dimensions[0]}" height="${dimensions[1]}"`
-      : "";
+  /* =======================================================
+     CREATE PROJECT NAVIGATION
+     ======================================================= */
 
-    el.innerHTML =
-      `<span class="g-card__in">` +
-      `<img src="public/projects/${c.id}.webp" alt="" ` +
-      `${sizeAttributes} ` +
-      `draggable="false" loading="lazy" decoding="async"></span>`;
+  navigation.replaceChildren();
 
-    // StayNest card
-    if (c.id === "p01_timeless") {
-      el.setAttribute(
-        "aria-label",
-        "Open StayNest Room Rental Management System",
-      );
+  const navButtons = PROJECTS.map((project, index) => {
+    const button = document.createElement("button");
 
-      el.addEventListener("click", () => {
-        window.open(
-          "https://stay-nest-gold.vercel.app",
-          "_blank",
-          "noopener,noreferrer",
-        );
-      });
-    }
+    button.type = "button";
+    button.className = "project-nav-button";
 
-    // StayNest Owner Dashboard card
-    if (c.id === "p03_build") {
-      el.setAttribute("aria-label", "Open StayNest Property Management System");
+    button.setAttribute("aria-pressed", "false");
 
-      el.addEventListener("click", () => {
-        window.open(
-          "https://stay-nest-gold.vercel.app",
-          "_blank",
-          "noopener,noreferrer",
-        );
-      });
-    }
+    const number = document.createElement("span");
 
-    // Java Full Stack Developer card
-    if (c.id === "p04_driven") {
-      el.setAttribute("aria-label", "Open Mayur Tambat GitHub Profile");
+    number.className = "project-nav-number";
+    number.textContent = formatNumber(index + 1);
 
-      el.addEventListener("click", () => {
-        window.open(
-          "https://github.com/mayurtambat01",
-          "_blank",
-          "noopener,noreferrer",
-        );
-      });
-    }
+    const name = document.createElement("span");
 
-    // Bulk Email Automation API card
-    if (c.id === "p02_game") {
-      el.setAttribute("aria-label", "Open Bulk Email Automation API on GitHub");
+    name.className = "project-nav-name";
+    name.textContent = project.name;
 
-      el.addEventListener("click", () => {
-        window.open(
-          "https://github.com/mayurtambat01/spring-boot-bulk-email-api",
-          "_blank",
-          "noopener,noreferrer",
-        );
-      });
-    }
+    button.append(number, name);
 
-    deck.appendChild(el);
-    return el;
-  });
-  person.style.zIndex = "34";
-
-  // ---- placement -----------------------------------------------------------
-  let portrait = false;
-  function place() {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const f = gallery.resize(w, h, dpr);
-    portrait = w / h < 0.75;
-    section.classList.toggle("is-portrait", portrait);
-
-    for (let i = 0; i < cards.length; i++) {
-      const c = CARDS[i];
-      const el = cards[i];
-      if (portrait) {
-        const p = PORTRAIT.get(i);
-        if (!p) {
-          el.style.display = "none";
-          continue;
-        }
-        el.style.display = "";
-        const cw = p.w * w;
-        el.style.width = `${cw}px`;
-        el.style.left = `${p.cx * w - cw / 2}px`;
-        el.style.top = `${p.cy * h - (cw * c.box[3]) / c.box[2] / 2}px`;
-      } else {
-        el.style.display = "";
-
-        const cw = c.box[2] * f.s;
-        const ch = c.box[3] * f.s;
-
-        el.style.width = `${cw}px`;
-        el.style.height = `${ch}px`;
-        el.style.left = `${c.box[0] * f.s + f.ox}px`;
-        el.style.top = `${c.box[1] * f.s + f.oy}px`;
-      }
-    }
-
-    // the red 01 belongs to the composition, not the viewport corners: it
-    // rides just over the hero screen's top-left, where the reference puts it
-    if (num && !portrait) {
-      num.style.left = `${588 * f.s + f.ox}px`;
-      num.style.top = `${46 * f.s + f.oy}px`;
-      num.style.fontSize = `${Math.max(10, 15 * f.s)}px`;
-    }
-
-    // The figure keeps the plate's own cover mapping in EVERY orientation:
-    // he must sit exactly over the hole the extractor filled behind him, or
-    // the fill's soft edge reads as a box around his silhouette.
-    person.style.width = `${PERSON.w * f.s}px`;
-    person.style.left = `${PERSON.x * f.s + f.ox}px`;
-    person.style.top = `${PERSON.y * f.s + f.oy}px`;
-  }
-  place();
-  let resizeId;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeId);
-    resizeId = setTimeout(place, 140);
-  });
-
-  // ---- pointer -------------------------------------------------------------
-  const ptr = { tx: 0, ty: 0, x: 0, y: 0, inside: false };
-  section.addEventListener(
-    "pointermove",
-    (e) => {
-      const r = section.getBoundingClientRect();
-      ptr.tx = ((e.clientX - r.left) / r.width) * 2 - 1;
-      ptr.ty = ((e.clientY - r.top) / r.height) * 2 - 1;
-      ptr.inside = true;
-    },
-    { passive: true },
-  );
-  section.addEventListener("pointerleave", () => {
-    ptr.inside = false;
-  });
-
-  // hover: the deck learns something is hot so siblings can ease back
-  deck.addEventListener("pointerover", (e) => {
-    if (e.target.closest(".g-card")) deck.classList.add("is-hot");
-  });
-  deck.addEventListener("pointerout", (e) => {
-    if (!e.relatedTarget || !e.relatedTarget.closest(".g-card")) {
-      deck.classList.remove("is-hot");
-    }
-  });
-
-  // ---- the clock -----------------------------------------------------------
-  const state = {
-    started: 0,
-    running: false,
-    visible: false,
-    raf: 0,
-    last: 0,
-    set: false,
-  };
-
-  const frame = (now) => {
-    if (!state.running) return;
-    const dt = Math.min(0.05, (now - state.last) / 1000 || 0.016);
-    state.last = now;
-    const t = reduced ? T4.live + 2 : (now - state.started) / 1000;
-    const s = sample4(t);
-
-    // scroll dolly: progress of the pin through its extra scroll room
-    const r = section.getBoundingClientRect();
-    const room = section.offsetHeight - window.innerHeight;
-    const sp = room > 4 ? Math.min(1, Math.max(0, -r.top / room)) : 0;
-
-    ptr.x = damp(ptr.x, ptr.inside ? ptr.tx : 0, 2.8, dt);
-    ptr.y = damp(ptr.y, ptr.inside ? ptr.ty : 0, 2.8, dt);
-    gallery.par.x = ptr.x;
-    gallery.par.y = ptr.y;
-    gallery.dolly = sp;
-    gallery.render(t, s);
-
-    // the deck yaws with the pointer - the "looking around the room" degree
-    const live = s.live ? 1 : 0;
-    deck.style.transform =
-      `rotateY(${(ptr.x * 2.1 * live).toFixed(3)}deg) ` +
-      `rotateX(${(-ptr.y * 1.4 * live).toFixed(3)}deg) ` +
-      `scale(${(1 + sp * 0.045).toFixed(4)})`;
-
-    for (let i = 0; i < cards.length; i++) {
-      if (portrait && !PORTRAIT.get(i)) continue;
-      const el = cards[i];
-      const d = CARDS[i].depth;
-      const e = popEase(cardIn(s.deck, rank[i], cards.length));
-      const rise = (1 - e) * (0.42 * window.innerHeight);
-      const str = (6 + (1 - d) * 26) * live;
-      const tx = ptr.x * str;
-      const ty = ptr.y * str * 0.55;
-      el.style.transform =
-        `translate3d(${tx.toFixed(2)}px, ${(ty + rise).toFixed(2)}px, 0) ` +
-        `rotateX(${((1 - e) * -24).toFixed(2)}deg) ` +
-        `rotateZ(${((1 - e) * (i % 2 ? 3.5 : -3.5)).toFixed(2)}deg) ` +
-        `scale(${(0.84 + e * 0.16).toFixed(4)})`;
-      const op = Math.min(1, Math.max(0, e * 2.4));
-      el.style.opacity = op.toFixed(3);
-      // blur -> sharp is part of the pop; cleared once settled so hover and
-      // floating never pay for a live filter
-      if (e < 0.995) {
-        el.style.filter = `blur(${((1 - Math.min(1, e)) * 7).toFixed(2)}px)`;
-      } else if (el.style.filter) {
-        el.style.filter = "";
-      }
-    }
-
-    // the figure: rises into the light after his gallery is mostly up
-    const pe = s.person;
-    person.style.transform =
-      `translate3d(${(ptr.x * -9 * live).toFixed(2)}px, ` +
-      `${(ptr.y * -5 * live + (1 - pe) * 34).toFixed(2)}px, 0) ` +
-      `scale(${(0.985 + pe * 0.015 + sp * 0.03).toFixed(4)})`;
-    person.style.opacity = pe.toFixed(3);
-
-    if (s.labels > 0 && !state.set) {
-      state.set = true;
-      section.classList.add("is-labels");
-    }
-    if (s.live) section.classList.add("is-live");
-
-    state.raf = requestAnimationFrame(frame);
-  };
-
-  const start = () => {
-    if (state.running) return;
-    state.running = true;
-    state.last = performance.now();
-    if (!state.started) state.started = performance.now();
-    state.raf = requestAnimationFrame(frame);
-  };
-  const stop = () => {
-    state.running = false;
-    cancelAnimationFrame(state.raf);
-  };
-
-  new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        state.visible = e.isIntersecting;
-        if (e.isIntersecting) start();
-        else stop();
-      }
-    },
-    { threshold: 0.22 },
-  ).observe(section);
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") stop();
-    else if (state.visible) start();
-  });
-
-  labels.forEach((el, i) => el.style.setProperty("--li", String(i)));
-
-  // review hook: canvas only (the cards are DOM; screenshot the pane for those)
-  window.__shot4 = async (name = "gallery", at = null) => {
-    const t = at !== null ? at : (performance.now() - state.started) / 1000;
-    gallery.render(t, sample4(t));
-    const url = canvas.toDataURL("image/png");
-    await fetch(`/__shot?name=${encodeURIComponent(name)}`, {
-      method: "POST",
-      body: url,
+    button.addEventListener("click", () => {
+      showProject(index);
     });
-    return `${canvas.width}x${canvas.height} @ t=${t.toFixed(2)}`;
-  };
-  window.__gallery = { gallery, state, section };
 
-  return { gallery, section };
+    navigation.appendChild(button);
+
+    return button;
+  });
+
+  /* =======================================================
+     UPDATE PROJECT LINKS
+     ======================================================= */
+
+  function updateLink(button, url) {
+    if (url) {
+      button.href = url;
+      button.hidden = false;
+    } else {
+      button.removeAttribute("href");
+      button.hidden = true;
+    }
+  }
+
+  /* =======================================================
+     DISPLAY SELECTED PROJECT
+     ======================================================= */
+
+  function showProject(index, animate = true) {
+    if (index < 0 || index >= PROJECTS.length) return;
+
+    currentIndex = index;
+
+    const project = PROJECTS[index];
+
+    clearTimeout(animationTimer);
+
+    card.classList.remove("is-changing");
+
+    /* Dynamic accent colors */
+
+    section.style.setProperty("--project-accent", project.accent);
+
+    section.style.setProperty("--project-accent-rgb", project.accentRGB);
+
+    section.dataset.project = project.id;
+
+    /* Project information */
+
+    label.textContent = `FEATURED PROJECT / ${formatNumber(index + 1)}`;
+
+    title.innerHTML = project.title;
+    subtitle.textContent = project.subtitle;
+    description.textContent = project.description;
+
+    /* Project visual */
+
+    image.alt =
+      project.id === "restaurant"
+        ? "Conceptual restaurant booking interface"
+        : `${project.name} cinematic project preview`;
+
+    const [width, height] = PROJECT_IMAGE_DIMENSIONS[project.id];
+
+    image.width = width;
+    image.height = height;
+    image.src = project.image;
+
+    /* Technology badges */
+
+    technologies.replaceChildren();
+
+    project.technologies.forEach((technology) => {
+      const badge = document.createElement("span");
+
+      badge.className = "project-tech-badge";
+      badge.textContent = technology;
+
+      technologies.appendChild(badge);
+    });
+
+    /* Action buttons */
+
+    updateLink(liveButton, project.live);
+    updateLink(githubButton, project.github);
+
+    if (project.id === "restaurant") {
+      liveButton.innerHTML = "&#9203; &nbsp; Under Deployment &nbsp; &#8599;";
+      liveButton.target = "_self";
+      liveButton.setAttribute(
+        "aria-label",
+        "View restaurant deployment status",
+      );
+    } else {
+      liveButton.innerHTML = "&#9654; &nbsp; Live Demo &nbsp; &#8599;";
+      liveButton.target = "_blank";
+      liveButton.rel = "noopener noreferrer";
+      liveButton.setAttribute("aria-label", `View ${project.name} live demo`);
+    }
+
+    /* Active navigation */
+
+    navButtons.forEach((button, buttonIndex) => {
+      const active = buttonIndex === index;
+
+      button.classList.toggle("is-active", active);
+
+      button.setAttribute("aria-pressed", String(active));
+    });
+
+    /* Navigation counter */
+
+    counter.textContent = `${formatNumber(index + 1)} / ${formatNumber(PROJECTS.length)}`;
+
+    prevButton.disabled = index === 0;
+
+    nextButton.disabled = index === PROJECTS.length - 1;
+
+    /* Cinematic transition */
+
+    if (animate && !reducedMotion.matches) {
+      void card.offsetWidth;
+
+      card.classList.add("is-changing");
+
+      animationTimer = window.setTimeout(() => {
+        card.classList.remove("is-changing");
+      }, 600);
+    }
+  }
+
+  /* =======================================================
+     PREVIOUS AND NEXT NAVIGATION
+     ======================================================= */
+
+  prevButton.addEventListener("click", () => {
+    showProject(currentIndex - 1);
+  });
+
+  nextButton.addEventListener("click", () => {
+    showProject(currentIndex + 1);
+  });
+
+  /* =======================================================
+     KEYBOARD NAVIGATION
+     ======================================================= */
+
+  section.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showProject(currentIndex - 1);
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showProject(currentIndex + 1);
+    }
+  });
+
+  /* =======================================================
+     INITIAL PROJECT
+     ======================================================= */
+
+  const url = new URL(window.location.href);
+
+  const requestedProject = url.searchParams.get("project");
+
+  const requestedIndex = PROJECTS.findIndex(
+    (project) => project.id === requestedProject,
+  );
+
+  showProject(requestedIndex >= 0 ? requestedIndex : 0, false);
+
+  // Remove project parameter after initial selection
+  if (url.searchParams.has("project")) {
+    url.searchParams.delete("project");
+
+    window.history.replaceState(
+      window.history.state,
+      "",
+      url.pathname + url.search + url.hash,
+    );
+  }
+
+  section.classList.add("is-live");
+
+  console.log("[Projects] Scene 4 initialized successfully.");
+
+  return {
+    section,
+    setTarget: showProject,
+  };
 }

@@ -1,0 +1,590 @@
+/* =========================================================
+   RESTAURANT BOOKING — CINEMATIC DEPLOYMENT PAGE
+   ========================================================= */
+
+:root {
+  --background: #100a06;
+  --accent: #efa34c;
+  --accent-light: #ffd49a;
+  --text: #fff3e7;
+  --muted: #c8b8a7;
+  --border: rgba(239, 163, 76, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   PAGE LAYOUT
+   ========================================================= */
+
+.deployment-page {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100svh;
+  padding: 30px clamp(20px, 5vw, 80px);
+  gap: 30px;
+  overflow: hidden;
+}
+
+/* =========================================================
+   CINEMATIC BACKGROUND
+   ========================================================= */
+
+.deployment-background,
+.deployment-overlay,
+.deployment-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.deployment-background {
+  background: url("../../public/projects/featured/cinematic-bg.webp") center /
+    cover no-repeat;
+  opacity: 0.65;
+}
+
+.deployment-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(8, 5, 3, 0.92),
+    rgba(20, 10, 4, 0.55),
+    rgba(8, 5, 3, 0.95)
+  );
+}
+
+.deployment-glow {
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(239, 163, 76, 0.13),
+    transparent 65%
+  );
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.deployment-header {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.deployment-brand {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.deployment-brand span {
+  color: var(--accent);
+}
+
+.deployment-index {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+}
+
+/* =========================================================
+   MAIN PROJECT CARD
+   ========================================================= */
+
+.deployment-card {
+  position: relative;
+  width: 100%;
+  max-width: 1250px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 60px);
+  padding: clamp(24px, 3vw, 45px);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: linear-gradient(
+    135deg,
+    rgba(38, 23, 12, 0.88),
+    rgba(12, 8, 5, 0.96)
+  );
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(239, 163, 76, 0.06);
+  animation: deploymentReveal 0.8s ease both;
+}
+
+/* =========================================================
+   PROJECT VISUAL
+   ========================================================= */
+
+.deployment-visual {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 0 35px rgba(239, 163, 76, 0.12);
+}
+
+.deployment-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.7s ease;
+}
+
+.deployment-visual:hover img {
+  transform: scale(1.035);
+}
+
+.deployment-visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 65%, rgba(0, 0, 0, 0.7));
+  pointer-events: none;
+}
+
+.deployment-preview {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(10, 6, 3, 0.9);
+  color: var(--accent-light);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+}
+
+/* =========================================================
+   PROJECT CONTENT
+   ========================================================= */
+
+.deployment-content {
+  min-width: 0;
+}
+
+.deployment-eyebrow {
+  display: block;
+  margin-bottom: 15px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+}
+
+.deployment-content h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 4.2vw, 66px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.deployment-content h1 span {
+  color: var(--accent);
+}
+
+.deployment-subtitle {
+  margin: 15px 0 24px;
+  color: var(--accent-light);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   DEPLOYMENT STATUS
+   ========================================================= */
+
+.deployment-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 17px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  background: rgba(239, 163, 76, 0.08);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.deployment-status-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 163, 76, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 0 7px rgba(239, 163, 76, 0);
+  }
+}
+
+.deployment-content h2 {
+  margin: 24px 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(21px, 2vw, 30px);
+  line-height: 1.3;
+}
+
+.deployment-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   TECHNOLOGY BADGES
+   ========================================================= */
+
+.deployment-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.deployment-technologies span {
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(239, 163, 76, 0.06);
+  color: var(--accent-light);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   BACK TO PROJECTS BUTTON
+   ========================================================= */
+
+.deployment-back {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  margin-top: 30px;
+  padding: 13px 25px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #ffd49a, #efa34c, #d98227);
+  color: #170e06;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 8px 25px rgba(239, 163, 76, 0.18);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.deployment-back:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(239, 163, 76, 0.3);
+}
+
+.deployment-back:active {
+  transform: translateY(0);
+}
+
+.deployment-back:focus-visible,
+.deployment-brand:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 5px;
+}
+
+.deployment-back span {
+  font-size: 20px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.deployment-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.deployment-footer p {
+  margin: 0;
+  color: var(--accent-light);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.deployment-footer span {
+  width: clamp(20px, 7vw, 100px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* =========================================================
+   ENTRANCE ANIMATION
+   ========================================================= */
+
+@keyframes deploymentReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   TABLET RESPONSIVENESS
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .deployment-card {
+    max-width: 680px;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .deployment-content {
+    text-align: center;
+  }
+
+  .deployment-technologies {
+    justify-content: center;
+  }
+
+  .deployment-content h1 {
+    font-size: clamp(36px, 6vw, 54px);
+  }
+}
+
+/* =========================================================
+   MOBILE RESPONSIVENESS
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .deployment-page {
+    padding: 22px 15px;
+    gap: 24px;
+  }
+
+  .deployment-header {
+    gap: 10px;
+  }
+
+  .deployment-brand {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  .deployment-index {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  .deployment-card {
+    padding: 15px;
+    gap: 22px;
+    border-radius: 18px;
+  }
+
+  .deployment-visual {
+    border-radius: 12px;
+  }
+
+  .deployment-preview {
+    bottom: 8px;
+    left: 8px;
+    font-size: 8px;
+    padding: 6px 8px;
+  }
+
+  .deployment-eyebrow {
+    font-size: 9px;
+    margin-bottom: 12px;
+  }
+
+  .deployment-content h1 {
+    font-size: clamp(28px, 8vw, 38px);
+  }
+
+  .deployment-subtitle {
+    font-size: 13px;
+    margin: 12px 0 18px;
+  }
+
+  .deployment-content h2 {
+    font-size: 22px;
+    margin-top: 20px;
+  }
+
+  .deployment-description {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .deployment-technologies {
+    gap: 6px;
+    margin-top: 18px;
+  }
+
+  .deployment-technologies span {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .deployment-back {
+    display: flex;
+    width: 100%;
+    margin-top: 24px;
+    font-size: 13px;
+  }
+
+  .deployment-footer p {
+    font-size: 11px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+/* =========================================================
+   DESKTOP FULL-SCREEN OPTIMIZATION
+   ========================================================= */
+
+@media (min-width: 901px) {
+  .deployment-page {
+    padding: 20px clamp(24px, 5vw, 80px);
+    gap: 18px;
+  }
+
+  .deployment-card {
+    padding: clamp(20px, 2.5vw, 35px);
+    gap: clamp(24px, 3vw, 45px);
+  }
+
+  .deployment-content h1 {
+    font-size: clamp(36px, 3.6vw, 54px);
+  }
+
+  .deployment-eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .deployment-subtitle {
+    margin: 10px 0 16px;
+  }
+
+  .deployment-content h2 {
+    font-size: clamp(21px, 1.9vw, 28px);
+    margin: 18px 0 10px;
+  }
+
+  .deployment-description {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .deployment-technologies {
+    margin-top: 16px;
+    gap: 7px;
+  }
+
+  .deployment-back {
+    margin-top: 20px;
+    min-height: 44px;
+    padding: 10px 22px;
+  }
+}
+
+/* Compact desktop screens */
+
+@media (min-width: 901px) and (max-height: 740px) {
+  .deployment-page {
+    padding-block: 16px;
+    gap: 12px;
+  }
+
+  .deployment-card {
+    padding: 24px;
+    gap: 30px;
+  }
+
+  .deployment-content h1 {
+    font-size: clamp(32px, 3.2vw, 46px);
+  }
+
+  .deployment-status {
+    padding: 8px 14px;
+  }
+
+  .deployment-content h2 {
+    margin: 16px 0 8px;
+    font-size: 24px;
+  }
+
+  .deployment-technologies span {
+    padding: 6px 10px;
+  }
+
+  .deployment-footer p {
+    font-size: 12px;
+  }
+}

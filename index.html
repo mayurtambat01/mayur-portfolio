@@ -477,42 +477,147 @@
         </div>
       </section>
 
-      <!-- ==================================================================== -->
+      <!-- =========================================================
+     SCENE 04 — CINEMATIC PROJECT SHOWCASE
+     ========================================================= -->
+
       <section class="gallery" id="gallery" aria-labelledby="galleryTitle">
         <div class="gallery__pin">
-          <canvas id="galleryStage" aria-hidden="true"></canvas>
+          <!-- Cinematic environment -->
+          <div class="projects-background" aria-hidden="true"></div>
+          <div class="projects-glow" aria-hidden="true"></div>
+          <div class="projects-particles" aria-hidden="true"></div>
+          <div class="projects-floor" aria-hidden="true"></div>
 
-          <div class="gallery__world">
-            <div class="gallery__deck" id="galleryDeck"></div>
-            <img
-              class="gallery__person"
-              id="galleryPerson"
-              src="public/projects/person.png"
-              alt=""
-              width="160"
-              height="335"
-              draggable="false"
-              loading="lazy"
-              decoding="async"
-            />
+          <!-- Section heading -->
+          <header class="projects-header">
+            <span class="projects-eyebrow"> FROM IDEAS TO REALITY </span>
+
+            <h2 class="projects-title" id="galleryTitle">
+              My Featured <span>Projects</span>
+            </h2>
+
+            <p class="projects-subtitle">Design · Develop · Deploy</p>
+          </header>
+
+          <!-- Main project showcase -->
+          <div class="projects-showcase">
+            <!-- Interactive project selection -->
+            <div
+              class="projects-navigation"
+              id="projectsNavigation"
+              role="group"
+              aria-label="Select featured project"
+            ></div>
+
+            <!-- Featured project -->
+            <article
+              class="featured-project"
+              id="featuredProject"
+              aria-live="polite"
+            >
+              <div class="featured-project__glow" aria-hidden="true"></div>
+
+              <!-- Project information -->
+              <div class="featured-project__content">
+                <span class="featured-project__label" id="projectLabel">
+                  FEATURED PROJECT / 01
+                </span>
+
+                <h3 class="featured-project__title" id="projectTitle">
+                  Stay<span>Nest</span>
+                </h3>
+
+                <p class="featured-project__subtitle" id="projectSubtitle">
+                  Room Rental Management System
+                </p>
+
+                <p
+                  class="featured-project__description"
+                  id="projectDescription"
+                >
+                  A full-stack web application to manage rooms, customers, rent,
+                  electricity bills and payments with secure access for owners
+                  and admins.
+                </p>
+
+                <!-- Technology stack -->
+                <div
+                  class="featured-project__technologies"
+                  id="projectTechnologies"
+                ></div>
+              </div>
+
+              <!-- Cinematic project preview -->
+              <div class="featured-project__visual">
+                <div class="project-planet" aria-hidden="true"></div>
+                <div class="project-visual-glow" aria-hidden="true"></div>
+
+                <img
+                  class="featured-project__image"
+                  id="projectImage"
+                  src="public/projects/featured/staynest.webp"
+                  alt="StayNest cinematic project preview"
+                  width="1672"
+                  height="941"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                />
+              </div>
+
+              <!-- Project action buttons -->
+              <div class="featured-project__actions">
+                <a
+                  class="project-button project-button--primary"
+                  id="projectLive"
+                  href="https://stay-nest-gold.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span aria-hidden="true">▶</span>
+                  Live Demo
+                  <span aria-hidden="true">↗</span>
+                </a>
+
+                <a
+                  class="project-button project-button--secondary"
+                  id="projectGithub"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  hidden
+                >
+                  GitHub
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </article>
           </div>
 
-          <h2 class="g-label g-label--projects" id="galleryTitle">Projects</h2>
-          <p class="g-label g-label--ideas" aria-hidden="true">
-            Java<br />Spring Boot<br />React.js<br /><b>Full Stack</b>
-          </p>
-          <p class="g-label g-label--scroll" aria-hidden="true">
-            Scroll<br />Explore<br />Projects
-          </p>
-          <p class="g-label g-label--real" aria-hidden="true">
-            Real<br />Projects<br />Real<br />Solutions
-          </p>
-          <p class="g-label g-label--tomorrow" aria-hidden="true">
-            Building<br />Ideas Into<br />Applications
-          </p>
-          <span class="g-label g-label--num" id="galleryNum" aria-hidden="true"
-            >01</span
-          >
+          <!-- Previous and next controls -->
+          <div class="projects-controls">
+            <button
+              type="button"
+              id="projectPrev"
+              aria-label="Previous project"
+              disabled
+            >
+              &#8592;
+            </button>
+
+            <span id="projectCounter">01 / 04</span>
+
+            <button type="button" id="projectNext" aria-label="Next project">
+              &#8594;
+            </button>
+          </div>
+
+          <!-- Cinematic footer -->
+          <footer class="projects-footer">
+            <span aria-hidden="true"></span>
+            <p>Real Projects. Real Solutions.</p>
+            <span aria-hidden="true"></span>
+          </footer>
         </div>
       </section>
     </main>
